@@ -34,11 +34,9 @@ jobs:
         run: npm ci
 
       # Setup any services required for tests here
-      - name: Setup env
-        run: |
-          cd apps/node
-          cp .env.example .env
+
       # End setup for tests
+
       # Run Lint and Dist
       - name: Run Lint and Dist
         run: |
