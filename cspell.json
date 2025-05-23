@@ -1,0 +1,45 @@
+{
+	"language": "en-GB",
+	"ignorePaths": [
+		"**/node_modules/**",
+		"LICENSE",
+		"**/coverage/**",
+		"**/dist/**",
+		"**/docs/reference/**",
+		"**/docs/open-api/**",
+		"**/tests/**",
+		"*.yaml",
+		"*.svg",
+		"package.json",
+		"rollup.config.mjs",
+		"vitest.config.*",
+		"tsconfig.json",
+		"typedoc.json",
+		".eslintrc.cjs",
+		"**/wordlists/**"
+	],
+	"words": [
+		"abbrev",
+		"bech",
+		"certbot",
+		"crosshair",
+		"dialogs",
+		"ipfs",
+		"nameof",
+		"Phytosanitary",
+		"scylladb",
+		"Stiftung",
+		"swatchbook",
+		"txblock",
+		"Unece",
+		"whereis"
+	],
+	"ignoreRegExpList": [
+		"/from\\s+(['\"]).*\\1/",
+		"/eslint-disable.*/",
+		"/^```shell[\\s\\S]*?```$/gm",
+		"/^```json[\\s\\S]*?```$/gm",
+		"/^```shell[\\s\\S]*?```$/gm",
+		"/^```json[\\s\\S]*?```$/gm"
+	]
+}

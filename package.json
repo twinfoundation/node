@@ -1,0 +1,56 @@
+{
+	"name": "@twin.org/node",
+	"version": "0.0.0",
+	"description": "TWIN Node",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/twinfoundation/node.git"
+	},
+	"author": "martyn.janes@iota.org",
+	"license": "Apache-2.0",
+	"private": true,
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"scripts": {
+		"dist": "node ./scripts/workspaces.mjs dist",
+		"format": "prettier --config .prettierrc --write .",
+		"lint:format": "prettier --config .prettierrc --check .",
+		"lint:code": "eslint . --ext .js,.mjs,.ts,.svelte",
+		"lint:markdown": "markdownlint **/*.md --ignore **/node_modules/** --ignore **/docs/reference/**  --ignore **/changelog.md",
+		"lint:spell": "cspell ** --no-progress",
+		"lint": "npm run lint:format && npm run lint:code && npm run lint:markdown && npm run lint:spell",
+		"local-link": "node ./scripts/local-link.mjs",
+		"commitlint": "commitlint --edit",
+		"generate-release-configs": "node scripts/generate-release-configs.mjs release",
+		"prepare": "husky"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "19.8.0",
+		"@commitlint/config-conventional": "19.8.0",
+		"@typescript-eslint/eslint-plugin": "^7.13.1",
+		"cspell": "^8.19.0",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^10.1.2",
+		"eslint-plugin-header": "^3.1.1",
+		"eslint-plugin-import": "^2.31.0",
+		"eslint-plugin-jsdoc": "^50.6.9",
+		"eslint-plugin-prettier": "^5.2.6",
+		"eslint-plugin-promise": "^7.2.1",
+		"eslint-plugin-svelte": "^2.46.1",
+		"eslint-plugin-unicorn": "^56.0.1",
+		"eslint-plugin-unused-imports": "^3.2.0",
+		"fast-glob": "^3.3.3",
+		"husky": "9.1.7",
+		"markdownlint-cli": "^0.44.0",
+		"prettier": "^3.5.3",
+		"prettier-plugin-svelte": "^3.3.3",
+		"prettier-plugin-tailwindcss": "^0.6.11",
+		"release-please": "17.0.0"
+	},
+	"workspaces": [
+		"packages/node-core",
+		"apps/node"
+	],
+	"type": "module"
+}

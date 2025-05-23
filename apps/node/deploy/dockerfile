@@ -1,0 +1,25 @@
+# Set the base image
+FROM node:20
+
+# Create the app directory
+WORKDIR /app
+
+# Copy the package.json
+COPY package.json .
+
+# Install only the production dependencies
+RUN npm install --omit=dev --ignore-scripts
+
+# Copy the rest of the files to the image
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Set the environment variables that will override the .env file in the package
+ENV TWIN_NODE_HOST=0.0.0.0
+ENV TWIN_NODE_PORT=3000
+ENV TWIN_NODE_STORAGE_FILE_ROOT=/twin-node/data
+
+# Start the server
+CMD ["node", "dist/es/index.js"]

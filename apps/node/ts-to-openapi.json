@@ -1,0 +1,73 @@
+{
+	"title": "TWIN TWIN Node Server",
+	"version": "1.0.0",
+	"description": "REST API for TWIN - API Server.",
+	"licenseName": "Apache 2.0 License",
+	"licenseUrl": "https://opensource.org/licenses/Apache-2.0",
+	"servers": ["https://node-api.twindev.org"],
+	"restRoutes": [
+		{
+			"package": "@twin.org/api-service"
+		},
+		{
+			"package": "@twin.org/api-auth-entity-storage-service"
+		},
+		{
+			"package": "@twin.org/identity-service"
+		},
+		{
+			"package": "@twin.org/blob-storage-service"
+		},
+		{
+			"package": "@twin.org/telemetry-service"
+		},
+		{
+			"package": "@twin.org/logging-service"
+		},
+		{
+			"package": "@twin.org/nft-service"
+		},
+		{
+			"package": "@twin.org/attestation-service"
+		},
+		{
+			"package": "@twin.org/verifiable-storage-service"
+		},
+		{
+			"package": "@twin.org/immutable-proof-service"
+		},
+		{
+			"package": "@twin.org/data-processing-service"
+		},
+		{
+			"package": "@twin.org/document-management-service"
+		},
+		{
+			"package": "@twin.org/auditable-item-graph-service",
+			"entryPoints": [
+				{
+					"name": "auditable-item-graph",
+					"baseRoutePath": "aig"
+				}
+			]
+		},
+		{
+			"package": "@twin.org/auditable-item-stream-service",
+			"entryPoints": [
+				{
+					"name": "auditable-item-stream",
+					"baseRoutePath": "ais"
+				}
+			]
+		},
+		{
+			"package": "@twin.org/document-management-service"
+		}
+	],
+	"authMethods": ["jwtBearer"],
+	"externalReferences": {
+		"JsonLd(.*?)": "https://schema.twindev.org/json-ld/JsonLd$1",
+		"AuditableItemGraph(.*?)": "https://schema.twindev.org/aig/AuditableItemGraph$1",
+		"AuditableItemStream(.*?)": "https://schema.twindev.org/ais/AuditableItemStream$1"
+	}
+}

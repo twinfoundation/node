@@ -1,0 +1,8 @@
+### Login
+POST http://localhost:3000/authentication/login
+content-type: application/json
+
+{
+	"email": "admin@node",
+	"password": "P1jg#+Cqh8&?SY£F"
+}

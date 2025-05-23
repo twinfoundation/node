@@ -1,0 +1,7 @@
+{
+	"verbose": false,
+	"watch": ["dist/", ".env", ".env.dev", "../../node_modules/@twin.org"],
+	"ext": "js,cjs,mjs,json",
+	"ignoreRoot": [".git"],
+	"ignore": ["**/rest/**", "**/.local-data/**"]
+}

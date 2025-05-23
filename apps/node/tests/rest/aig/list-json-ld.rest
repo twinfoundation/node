@@ -1,0 +1,11 @@
+### List auditable item graph vertices
+
+GET http://localhost:3000/aig
+cookie: access_token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZW50aXR5LXN0b3JhZ2U6MHgyNzViYTQ5NWI2ZmM2MzU5NDhmMjU2OGY1MmFmYjc5NzIwMDc4N2U5ZjcxZTBiNDFlZGI2MmNlN2UzYzg0NjRjIiwiZXhwIjoxNzI4NDgyODg0fQ.7lKvYm03XKPEGeTQRQbYQ-0q1UGYWlfTmceIwlC2YqMgIu-3uGNMqyj7YdBq_yKQG15iT6m67abddnoJdBaWAw
+accept: application/ld+json
+
+### List auditable item graph vertices with property subset
+
+GET http://localhost:3000/aig?properties=id,created
+cookie: access_token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZW50aXR5LXN0b3JhZ2U6MHgyNzViYTQ5NWI2ZmM2MzU5NDhmMjU2OGY1MmFmYjc5NzIwMDc4N2U5ZjcxZTBiNDFlZGI2MmNlN2UzYzg0NjRjIiwiZXhwIjoxNzI4NDgyODg0fQ.7lKvYm03XKPEGeTQRQbYQ-0q1UGYWlfTmceIwlC2YqMgIu-3uGNMqyj7YdBq_yKQG15iT6m67abddnoJdBaWAw
+accept: application/ld+json

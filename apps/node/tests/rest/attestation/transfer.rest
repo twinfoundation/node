@@ -1,0 +1,11 @@
+### Transfers an attestation
+
+PUT http://localhost:3000/attestation/attestation:iota:bmZ0OmlvdGE6dHN0OjB4YzQ4ODNhMzc1YzZjN2E2Mzk0YjgwZmVhMjRhN2FkZGIyZGU3MWZkZjVlNjQyYjg1MGI1YmRkNjgxNjJlZDk4Nw==/transfer
+cookie: access_token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZW50aXR5LXN0b3JhZ2U6MHgyNzViYTQ5NWI2ZmM2MzU5NDhmMjU2OGY1MmFmYjc5NzIwMDc4N2U5ZjcxZTBiNDFlZGI2MmNlN2UzYzg0NjRjIiwiZXhwIjoxNzI4NDgyODg0fQ.7lKvYm03XKPEGeTQRQbYQ-0q1UGYWlfTmceIwlC2YqMgIu-3uGNMqyj7YdBq_yKQG15iT6m67abddnoJdBaWAw
+content-type: application/json
+
+{
+	"holderAddress": "tst1qrdd3m2t3hel3pjksr4ld8kfj48yxklpru3emv7wejhdp9fd24dhq4h9pv8",
+	"holderIdentity": "did:iota:tst:0xeb669c32b08e73e00b2f3afc0bb94913329a7f70d3ca78a7c29f42178aa3bc63"
+}
+

@@ -1,0 +1,18 @@
+### Creates an attestation
+
+POST http://localhost:3000/attestation
+cookie: access_token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZW50aXR5LXN0b3JhZ2U6MHgyNzViYTQ5NWI2ZmM2MzU5NDhmMjU2OGY1MmFmYjc5NzIwMDc4N2U5ZjcxZTBiNDFlZGI2MmNlN2UzYzg0NjRjIiwiZXhwIjoxNzI3NjgxMzMxfQ.rOnmBuyR2ANrLHnBUz9axDCBKvZU3PVVsDzuZtQMijhjGacM0UGh4ScKLJSMhpbRZ4QPC8kN835aQknK2kWrBw
+content-type: application/json
+
+{
+	"address": "tst1qzcs7xqax2rajn6kn5y52w2x9x7q3qvfphf0nte7yjpswufvgasrstt4eny",
+  	"verificationMethodId": "did:entity-storage:0x275ba495b6fc635948f2568f52afb797200787e9f71e0b41edb62ce7e3c8464c#attestation",
+  	"attestationObject": {
+		"@context": "https://schema.org",
+		"type": "DigitalDocument",
+    	"name": "bill-of-lading",
+    	"mimeType": "application/pdf",
+    	"fingerprint": "0xf0b95a98b3dbc5ce1c9ce59d70af95a97599f100a7296ecdd1eb108bebfa047f"
+  	}
+}
+

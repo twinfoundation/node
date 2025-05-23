@@ -1,0 +1,34 @@
+{
+	"error": {
+		"node": {
+			"noEnvVars": "There are no environment variables starting TWIN_NODE_ the server will not start without them, please set them in the shell or create a .env file",
+			"storageFileRootNotSet": "TWIN_NODE_STORAGE_FILE_ROOT is not set, the server will not start without it, please set it in the shell or create a .env file"
+		}
+	},
+	"node": {
+		"terminateSignal": "Server terminating",
+		"generatingMnemonic": "Generating mnemonic \"{mnemonic}\"",
+		"storingMnemonic": "Storing mnemonic",
+		"existingMnemonic": "Mnemonic already exists",
+		"fundingWallet": "Funding wallet \"{address}\"",
+		"fundedWallet": "Wallet already funded",
+		"generatingNodeIdentity": "Generating node identity",
+		"existingNodeIdentity": "Node identity already exists",
+		"identityExplorer": "Identity explorer \"{url}\"",
+		"creatingNodeUser": "Creating node user",
+		"existingNodeUser": "Node user already exists",
+		"creatingAuthKey": "Creating authentication key",
+		"existingAuthKey": "Authentication key already exists",
+		"addingAttestation": "Adding attestation verification method",
+		"existingAttestation": "Attestation verification method already exists",
+		"addingImmutableProof": "Adding immutable proof verification method",
+		"existingImmutableProof": "Immutable proof verification method already exists",
+		"creatingBlobEncryptionKey": "Creating blob encryption key",
+		"existingBlobEncryptionKey": "Blob encryption key already exists",
+		"creatingUserProfile": "Creating user profile",
+		"existingUserProfile": "User profile already exists",
+		"nodeIdentity": "Node identity \"{identity}\"",
+		"nodeAdminUserEmail": "Node Admin User Email \"{email}\"",
+		"nodeAdminUserPassword": "Node Admin User Password \"{password}\""
+	}
+}

@@ -1,0 +1,5 @@
+### Get an nft
+
+GET http://localhost:3000/nft/nft:entity-storage:ac88504c13c3fe5e40a459b15701fb63a5b5a7ab4ef62b7f12709762cbee9f4d
+cookie: access_token=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZW50aXR5LXN0b3JhZ2U6MHgyNzViYTQ5NWI2ZmM2MzU5NDhmMjU2OGY1MmFmYjc5NzIwMDc4N2U5ZjcxZTBiNDFlZGI2MmNlN2UzYzg0NjRjIiwiZXhwIjoxNzI4NDgyODg0fQ.7lKvYm03XKPEGeTQRQbYQ-0q1UGYWlfTmceIwlC2YqMgIu-3uGNMqyj7YdBq_yKQG15iT6m67abddnoJdBaWAw
+
