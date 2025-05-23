@@ -62,6 +62,9 @@
 		},
 		{
 			"package": "@twin.org/document-management-service"
+		},
+		{
+			"package": "@twin.org/federated-catalogue-service"
 		}
 	],
 	"authMethods": ["jwtBearer"],
