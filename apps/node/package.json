@@ -1,6 +1,6 @@
 {
 	"name": "@twin.org/node",
-	"version": "0.0.1-next.1",
+	"version": "0.0.1-next.2",
 	"description": "TWIN Node serving APIs using the specified configuration",
 	"private": true,
 	"repository": {
@@ -30,7 +30,7 @@
 		"prepare": "ts-patch install -s"
 	},
 	"dependencies": {
-		"@twin.org/node-core": "0.0.1-next.1"
+		"@twin.org/node-core": "0.0.1-next.2"
 	},
 	"devDependencies": {
 		"@twin.org/entity-storage-connector-memory": "next",
