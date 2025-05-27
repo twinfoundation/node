@@ -2,17 +2,15 @@
 
 ## [0.0.1-next.3](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.2...node-v0.0.1-next.3) (2025-05-27)
 
-
 ### Features
 
-* node app use JavaScript ([14fe08c](https://github.com/twinfoundation/node/commit/14fe08cb760dd885a5dac9056a4d5dbc3d61df64))
-
+- node app use JavaScript ([14fe08c](https://github.com/twinfoundation/node/commit/14fe08cb760dd885a5dac9056a4d5dbc3d61df64))
 
 ### Dependencies
 
-* The following workspace dependencies were updated
-  * dependencies
-    * @twin.org/node-core bumped from 0.0.1-next.2 to 0.0.1-next.3
+- The following workspace dependencies were updated
+  - dependencies
+    - @twin.org/node-core bumped from 0.0.1-next.2 to 0.0.1-next.3
 
 ## [0.0.1-next.2](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.1...node-v0.0.1-next.2) (2025-05-27)
 

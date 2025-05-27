@@ -1,32 +1,20 @@
 # TWIN Node Core
 
-Core of a TWIN node for running the TWIN engine as a REST server.
+TWIN Node Core for serving APIs using the specified configuration
 
-## Building and running the application
-
-To install the dependencies, perform a full build and start the server.
+## Installation
 
 ```shell
-npm install
-npm run dist
-npm start
+npm install @twin.org/node-core
 ```
 
-## Development mode
+## Examples
 
-Once you have performed a full build you can run the server in development mode, this will watch the TypeScript code, rebuild if there are any changes, and relaunch the server.
+Usage of the APIs is shown in the examples [docs/examples.md](docs/examples.md)
 
-```shell
-npm run dev
-```
+## Reference
 
-## Configuration
-
-There are various options you can set through configuration, these can be found in [docs/configuration.md](docs/configuration.md)
-
-## Deployment
-
-Examples of how to deploy the app can be found in [docs/deployment.md](docs/deployment.md)
+Detailed reference documentation for the API can be found in [docs/reference/index.md](docs/reference/index.md)
 
 ## Changelog
 
