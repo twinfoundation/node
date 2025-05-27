@@ -22,4 +22,4 @@ ENV TWIN_NODE_PORT=3000
 ENV TWIN_NODE_STORAGE_FILE_ROOT=/twin-node/data
 
 # Start the server
-CMD ["node", "dist/es/index.js"]
+CMD ["node", "src/index.mjs"]

@@ -16,8 +16,8 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist coverage",
-		"build": "tsc",
-		"dev": "concurrently \"tspc --watch\" \"nodemon\"",
+		"build": "echo There is no build step for this package",
+		"dev": "concurrently \"nodemon\"",
 		"merge-locales": "merge-locales",
 		"test": "vitest --run --config ./vitest.config.ts --no-cache",
 		"coverage": "vitest --run --coverage --config ./vitest.config.ts --no-cache",
@@ -26,8 +26,7 @@
 		"docs": "npm run docs:clean && npm run docs:api",
 		"dist": "npm run clean && npm run build && npm run merge-locales && npm run test && npm run docs",
 		"dist:no-test": "npm run clean && npm run build && npm run merge-locales && npm run docs",
-		"start": "node dist/es/index.js",
-		"prepare": "ts-patch install -s"
+		"start": "node src/index.mjs"
 	},
 	"dependencies": {
 		"@twin.org/node-core": "0.0.1-next.2"
