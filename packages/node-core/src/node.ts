@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 import path from "node:path";
 import type { IServerInfo } from "@twin.org/api-models";
-import { EnvHelper, ErrorHelper, Is } from "@twin.org/core";
+import { EnvHelper, ErrorHelper, GeneralError, Is } from "@twin.org/core";
 import * as dotenv from "dotenv";
 import type { INodeVariables } from "./models/INodeVariables";
 import type { IRunOptions } from "./models/IRunOptions";
@@ -55,9 +55,14 @@ export async function run(options?: IRunOptions): Promise<void> {
 		console.info("Environment Prefix:", envPrefix);
 		const envVars = EnvHelper.envToJson<INodeVariables>(process.env, envPrefix);
 
+		if (Object.keys(envVars).length === 0) {
+			throw new GeneralError("node", "noEnvVars", { prefix: envPrefix });
+		}
+
 		console.info();
 		const startResult = await start(
 			serverInfo,
+			envPrefix,
 			envVars,
 			options?.openApiSpecFile,
 			options.stateStorage,

@@ -1,6 +1,6 @@
 # Function: start()
 
-> **start**(`serverInfo`, `envVars`, `openApiSpecFile?`, `stateStorage?`, `customConfig?`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
+> **start**(`serverInfo`, `envVarsPrefix`, `envVars`, `openApiSpecFile?`, `stateStorage?`, `customConfig?`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
 
 Start the engine server.
 
@@ -11,6 +11,12 @@ Start the engine server.
 `IServerInfo`
 
 The server information.
+
+### envVarsPrefix
+
+`string`
+
+The prefix for the environment variables.
 
 ### envVars
 

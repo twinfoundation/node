@@ -54,6 +54,7 @@ describe("node-core", () => {
 				name: "foo",
 				version: "0.0.0"
 			},
+			"TWIN_NODE_",
 			config,
 			"",
 			memoryStateStorage
@@ -114,6 +115,7 @@ describe("node-core", () => {
 				name: "foo",
 				version: "0.0.0"
 			},
+			"TWIN_NODE_",
 			config,
 			"",
 			memoryStateStorage
@@ -333,6 +335,7 @@ describe("node-core", () => {
 				name: "foo",
 				version: "0.0.0"
 			},
+			"TWIN_NODE_",
 			config,
 			"",
 			memoryStateStorage
@@ -353,6 +356,7 @@ describe("node-core", () => {
 					name: "foo",
 					version: "0.0.0"
 				},
+				"TWIN_NODE_",
 				config,
 				"",
 				memoryStateStorage2

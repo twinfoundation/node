@@ -1,8 +1,8 @@
 {
 	"error": {
 		"node": {
-			"noEnvVars": "There are no environment variables starting TWIN_NODE_ the server will not start without them, please set them in the shell or create a .env file",
-			"storageFileRootNotSet": "TWIN_NODE_STORAGE_FILE_ROOT is not set, the server will not start without it, please set it in the shell or create a .env file"
+			"noEnvVars": "There are no environment variables starting \"{prefix}\" the server will not start without them, please set them in the shell or create a .env file",
+			"storageFileRootNotSet": "{storageFileRoot} is not set, the server will not start without it, please set it in the shell or create a .env file"
 		}
 	},
 	"node": {

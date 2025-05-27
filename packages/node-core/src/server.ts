@@ -19,6 +19,7 @@ import type { INodeVariables } from "./models/INodeVariables";
 /**
  * Start the engine server.
  * @param serverInfo The server information.
+ * @param envVarsPrefix The prefix for the environment variables.
  * @param envVars The environment variables.
  * @param openApiSpecFile Path to the OpenAPI spec file.
  * @param stateStorage The state storage.
@@ -27,6 +28,7 @@ import type { INodeVariables } from "./models/INodeVariables";
  */
 export async function start(
 	serverInfo: IServerInfo,
+	envVarsPrefix: string,
 	envVars: INodeVariables,
 	openApiSpecFile?: string,
 	stateStorage?: IEngineStateStorage,
@@ -46,7 +48,9 @@ export async function start(
 			Is.empty(stateStorage)) &&
 		!Is.stringValue(envVars.storageFileRoot)
 	) {
-		throw new GeneralError("node", "storageFileRootNotSet");
+		throw new GeneralError("node", "storageFileRootNotSet", {
+			storageFileRoot: `${envVarsPrefix}_STORAGE_FILE_ROOT`
+		});
 	}
 
 	// Build the engine configuration from the environment variables.
