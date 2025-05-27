@@ -19,7 +19,7 @@ export async function run(options?: IRunOptions): Promise<void> {
 	try {
 		const serverInfo: IServerInfo = {
 			name: options?.serverName ?? "TWIN Node Server",
-			version: options?.serverVersion ?? "0.0.1-next.2" // x-release-please-version
+			version: options?.serverVersion ?? "0.0.1-next.3" // x-release-please-version
 		};
 
 		console.log(`\u001B[4m🌩️  ${serverInfo.name} v${serverInfo.version}\u001B[24m\n`);
