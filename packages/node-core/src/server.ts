@@ -22,7 +22,7 @@ import type { INodeVariables } from "./models/INodeVariables";
  * @param envVars The environment variables.
  * @param openApiSpecFile Path to the OpenAPI spec file.
  * @param stateStorage The state storage.
- * @param extendConfig Extends the engine configuration with any additional custom configuration.
+ * @param customConfig Extends the engine configuration with any additional custom configuration.
  * @returns The engine server.
  */
 export async function start(
@@ -30,7 +30,7 @@ export async function start(
 	envVars: INodeVariables,
 	openApiSpecFile?: string,
 	stateStorage?: IEngineStateStorage,
-	extendConfig?: (config: IEngineConfig) => Promise<void>
+	customConfig?: (config: IEngineConfig) => Promise<void>
 ): Promise<
 	| {
 			engine: Engine<IEngineServerConfig, INodeState>;
@@ -53,8 +53,8 @@ export async function start(
 	const engineConfig = buildEngineConfiguration(envVars);
 
 	// Extend the engine configuration with a custom type.
-	if (Is.function(extendConfig)) {
-		await extendConfig(engineConfig);
+	if (Is.function(customConfig)) {
+		await customConfig(engineConfig);
 	}
 
 	// Build the server configuration from the environment variables.

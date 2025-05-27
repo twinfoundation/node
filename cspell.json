@@ -16,7 +16,8 @@
 		"tsconfig.json",
 		"typedoc.json",
 		".eslintrc.cjs",
-		"**/wordlists/**"
+		"**/wordlists/**",
+		"changelog.md"
 	],
 	"words": [
 		"abbrev",

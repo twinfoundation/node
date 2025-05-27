@@ -4,6 +4,7 @@
 
 - [INodeState](interfaces/INodeState.md)
 - [INodeVariables](interfaces/INodeVariables.md)
+- [IRunOptions](interfaces/IRunOptions.md)
 
 ## Type Aliases
 

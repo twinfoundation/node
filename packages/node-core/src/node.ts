@@ -6,34 +6,20 @@ import type { IServerInfo } from "@twin.org/api-models";
 import { EnvHelper, ErrorHelper, Is } from "@twin.org/core";
 import * as dotenv from "dotenv";
 import type { INodeVariables } from "./models/INodeVariables";
+import type { IRunOptions } from "./models/IRunOptions";
 import { start } from "./server";
 import { fileExists, getExecutionDirectory, initialiseLocales } from "./utils";
 
 /**
  * Run the TWIN Node server.
- * @param options Optional options for the server.
- * @param options.serverName Optional name of the server, defaults to "TWIN Node Server".
- * @param options.serverVersion Optional version of the server, defaults to current version.
- * @param options.envFilenames Additional environment variable filenames to load, defaults to .env.
- * @param options.envPrefix Optional prefix for environment variables, defaults to "TWIN_NODE_".
- * @param options.executionDirectory Optional directory to override the execution location, defaults to process directory.
- * @param options.localesDirectory Optional directory to override the locales directory, defaults to the locales directory.
- * @param options.openApiSpecFile Optional path to the OpenAPI spec file, defaults to docs/open-api/spec.json.
+ * @param options Optional configuration options for running the server.
  * @returns A promise that resolves when the server is started.
  */
-export async function run(options?: {
-	serverName?: string;
-	serverVersion?: string;
-	envFilenames?: string[];
-	envPrefix?: string;
-	executionDirectory?: string;
-	localesDirectory?: string;
-	openApiSpecFile?: string;
-}): Promise<void> {
+export async function run(options?: IRunOptions): Promise<void> {
 	try {
 		const serverInfo: IServerInfo = {
 			name: options?.serverName ?? "TWIN Node Server",
-			version: options?.serverVersion ?? "0.0.1-next.1" // x-release-please-version
+			version: options?.serverVersion ?? "0.0.1-next.2" // x-release-please-version
 		};
 
 		console.log(`\u001B[4m🌩️  ${serverInfo.name} v${serverInfo.version}\u001B[24m\n`);
@@ -70,7 +56,14 @@ export async function run(options?: {
 		const envVars = EnvHelper.envToJson<INodeVariables>(process.env, envPrefix);
 
 		console.info();
-		const startResult = await start(serverInfo, envVars, options?.openApiSpecFile);
+		const startResult = await start(
+			serverInfo,
+			envVars,
+			options?.openApiSpecFile,
+			options.stateStorage,
+			options.customConfig
+		);
+
 		if (!Is.empty(startResult)) {
 			for (const signal of ["SIGHUP", "SIGINT", "SIGTERM"]) {
 				process.on(signal, async () => {

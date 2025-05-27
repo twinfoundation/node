@@ -3,6 +3,7 @@
 export * from "./bootstrap";
 export * from "./models/INodeState";
 export * from "./models/INodeVariables";
+export * from "./models/IRunOptions";
 export * from "./models/nodeFeatures";
 export * from "./node";
 export * from "./server";
