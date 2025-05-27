@@ -1,5 +1,17 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.4](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.3...node-core-v0.0.1-next.4) (2025-05-27)
+
+
+### Features
+
+* improve error reporting ([fcd39a1](https://github.com/twinfoundation/node/commit/fcd39a18da2a6ce33965a99ca5f2f36f4aba712f))
+
+
+### Bug Fixes
+
+* broken docs ([61479fd](https://github.com/twinfoundation/node/commit/61479fd618f766d22c5aafec5277e1a89e22b453))
+
 ## [0.0.1-next.3](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.2...node-core-v0.0.1-next.3) (2025-05-27)
 
 ### Features
