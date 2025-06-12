@@ -66,9 +66,9 @@ The path to the OpenAPI spec file, defaults to docs/open-api/spec.json.
 
 ***
 
-### customConfig()?
+### extendConfig()?
 
-> `optional` **customConfig**: (`config`) => `Promise`\<`void`\>
+> `optional` **extendConfig**: (`config`) => `Promise`\<`void`\>
 
 Method to extend the engine configuration with any additional custom configuration.
 
@@ -77,6 +77,42 @@ Method to extend the engine configuration with any additional custom configurati
 ##### config
 
 `IEngineConfig`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### extendEngine()?
+
+> `optional` **extendEngine**: (`engine`) => `Promise`\<`void`\>
+
+Method to extend the engine with any additional options.
+
+#### Parameters
+
+##### engine
+
+`IEngineCore`
+
+#### Returns
+
+`Promise`\<`void`\>
+
+***
+
+### extendEngineServer()?
+
+> `optional` **extendEngineServer**: (`engineServer`) => `Promise`\<`void`\>
+
+Method to extend the engine server with any additional options.
+
+#### Parameters
+
+##### engineServer
+
+`IEngineServer`
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Function: start()
 
-> **start**(`serverInfo`, `envVarsPrefix`, `envVars`, `openApiSpecFile?`, `stateStorage?`, `customConfig?`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
+> **start**(`serverInfo`, `envVarsPrefix`, `envVars`, `openApiSpecFile?`, `stateStorage?`, `extendConfig?`, `extendEngine?`, `extendEngineServer?`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
 
 Start the engine server.
 
@@ -36,11 +36,23 @@ Path to the OpenAPI spec file.
 
 The state storage.
 
-### customConfig?
+### extendConfig?
 
 (`config`) => `Promise`\<`void`\>
 
 Extends the engine configuration with any additional custom configuration.
+
+### extendEngine?
+
+(`engine`) => `Promise`\<`void`\>
+
+Extends the engine with any additional options.
+
+### extendEngineServer?
+
+(`engineServer`) => `Promise`\<`void`\>
+
+Extends the engine server with any additional options.
 
 ## Returns
 

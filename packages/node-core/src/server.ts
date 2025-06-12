@@ -4,7 +4,12 @@ import type { IServerInfo } from "@twin.org/api-models";
 import { GeneralError, Is } from "@twin.org/core";
 import { buildEngineConfiguration, Engine } from "@twin.org/engine";
 import { FileStateStorage } from "@twin.org/engine-core";
-import { EngineCoreFactory, type IEngineStateStorage } from "@twin.org/engine-models";
+import {
+	EngineCoreFactory,
+	type IEngineCore,
+	type IEngineServer,
+	type IEngineStateStorage
+} from "@twin.org/engine-models";
 import { buildEngineServerConfiguration, EngineServer } from "@twin.org/engine-server";
 import type { IEngineServerConfig } from "@twin.org/engine-server-types";
 import {
@@ -23,7 +28,9 @@ import type { INodeVariables } from "./models/INodeVariables";
  * @param envVars The environment variables.
  * @param openApiSpecFile Path to the OpenAPI spec file.
  * @param stateStorage The state storage.
- * @param customConfig Extends the engine configuration with any additional custom configuration.
+ * @param extendConfig Extends the engine configuration with any additional custom configuration.
+ * @param extendEngine Extends the engine with any additional options.
+ * @param extendEngineServer Extends the engine server with any additional options.
  * @returns The engine server.
  */
 export async function start(
@@ -32,7 +39,9 @@ export async function start(
 	envVars: INodeVariables,
 	openApiSpecFile?: string,
 	stateStorage?: IEngineStateStorage,
-	customConfig?: (config: IEngineConfig) => Promise<void>
+	extendConfig?: (config: IEngineConfig) => Promise<void>,
+	extendEngine?: (engine: IEngineCore) => Promise<void>,
+	extendEngineServer?: (engineServer: IEngineServer) => Promise<void>
 ): Promise<
 	| {
 			engine: Engine<IEngineServerConfig, INodeState>;
@@ -57,8 +66,8 @@ export async function start(
 	const engineConfig = buildEngineConfiguration(envVars);
 
 	// Extend the engine configuration with a custom type.
-	if (Is.function(customConfig)) {
-		await customConfig(engineConfig);
+	if (Is.function(extendConfig)) {
+		await extendConfig(engineConfig);
 	}
 
 	// Build the server configuration from the environment variables.
@@ -76,12 +85,22 @@ export async function start(
 		customBootstrap: async (core, engineContext) => bootstrap(core, engineContext, envVars)
 	});
 
-	// Need to register the engine with the factory so that background tasks
-	// can clone it to spawn new instances.
-	EngineCoreFactory.register("engine", () => engine);
+	// Extend the engine.
+	if (Is.function(extendEngine)) {
+		await extendEngine(engine);
+	}
 
 	// Construct the server with the engine.
 	const server = new EngineServer({ engineCore: engine });
+
+	// Extend the engine server.
+	if (Is.function(extendEngineServer)) {
+		await extendEngineServer(server);
+	}
+
+	// Need to register the engine with the factory so that background tasks
+	// can clone it to spawn new instances.
+	EngineCoreFactory.register("engine", () => engine);
 
 	// Start the server, which also starts the engine.
 	const canContinue = await server.start();

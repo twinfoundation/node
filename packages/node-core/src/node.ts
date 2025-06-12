@@ -66,7 +66,9 @@ export async function run(options?: IRunOptions): Promise<void> {
 			envVars,
 			options?.openApiSpecFile,
 			options.stateStorage,
-			options.customConfig
+			options.extendConfig,
+			options.extendEngine,
+			options.extendEngineServer
 		);
 
 		if (!Is.empty(startResult)) {

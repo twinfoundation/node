@@ -37,17 +37,17 @@
 		"@twin.org/nameof-transformer": "next",
 		"@twin.org/nameof-vitest-plugin": "next",
 		"@twin.org/ts-to-openapi": "next",
-		"@types/node": "22.14.1",
-		"@vitest/coverage-v8": "3.1.2",
+		"@types/node": "24.0.1",
+		"@vitest/coverage-v8": "3.2.3",
 		"concurrently": "9.1.2",
 		"copyfiles": "2.4.1",
 		"cross-env": "7.0.3",
-		"nodemon": "3.1.9",
+		"nodemon": "3.1.10",
 		"rimraf": "6.0.1",
 		"ts-patch": "3.3.0",
-		"typedoc": "0.28.2",
-		"typedoc-plugin-markdown": "4.6.2",
+		"typedoc": "0.28.5",
+		"typedoc-plugin-markdown": "4.6.4",
 		"typescript": "5.8.3",
-		"vitest": "3.1.2"
+		"vitest": "3.2.3"
 	}
 }

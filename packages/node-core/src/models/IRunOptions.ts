@@ -1,6 +1,6 @@
 // Copyright 2024 IOTA Stiftung.
 // SPDX-License-Identifier: Apache-2.0.
-import type { IEngineStateStorage } from "@twin.org/engine-models";
+import type { IEngineCore, IEngineServer, IEngineStateStorage } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
 
 /**
@@ -46,7 +46,17 @@ export interface IRunOptions {
 	/**
 	 * Method to extend the engine configuration with any additional custom configuration.
 	 */
-	customConfig?: (config: IEngineConfig) => Promise<void>;
+	extendConfig?: (config: IEngineConfig) => Promise<void>;
+
+	/**
+	 * Method to extend the engine with any additional options.
+	 */
+	extendEngine?: (engine: IEngineCore) => Promise<void>;
+
+	/**
+	 * Method to extend the engine server with any additional options.
+	 */
+	extendEngineServer?: (engineServer: IEngineServer) => Promise<void>;
 
 	/**
 	 * The state storage to use for the engine.
