@@ -68,7 +68,12 @@ describe("node-core", () => {
 			version: "0.0.0"
 		});
 
-		expect(ComponentFactory.names()).toEqual(["logging", "information"]);
+		expect(ComponentFactory.names()).toEqual([
+			"logging",
+			"pap",
+			"rights-management",
+			"information"
+		]);
 
 		const buildRestRoutes = startResult?.server?.getRestRoutes() ?? [];
 		expect(buildRestRoutes.map(r => r.path)).toEqual([
@@ -77,7 +82,12 @@ describe("node-core", () => {
 			"/health",
 			"/spec",
 			"logging/",
-			"logging/"
+			"logging/",
+			"rights-management/pap/",
+			"rights-management/pap/:id",
+			"rights-management/pap/:id",
+			"rights-management/pap/:id",
+			"rights-management/pap/query"
 		]);
 
 		await startResult?.server.stop();
@@ -145,6 +155,8 @@ describe("node-core", () => {
 			"data-processing",
 			"documents",
 			"fedcat",
+			"pap",
+			"rights-management",
 			"authentication-entity-storage",
 			"information"
 		]);
@@ -248,7 +260,12 @@ describe("node-core", () => {
 			"federated-catalogue/data-resources",
 			"federated-catalogue/data-resources/:id",
 			"federated-catalogue/data-space-connectors",
-			"federated-catalogue/data-space-connectors/:id"
+			"federated-catalogue/data-space-connectors/:id",
+			"rights-management/pap/",
+			"rights-management/pap/:id",
+			"rights-management/pap/:id",
+			"rights-management/pap/:id",
+			"rights-management/pap/query"
 		]);
 
 		if (startResult?.engine) {

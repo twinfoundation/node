@@ -10,7 +10,6 @@ coverage
 **/.tmp
 **/.local-data
 vitest.config.ts.timestamp*
-**/.svelte-kit
 **/test-results
 .vercel
 .env
