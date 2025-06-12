@@ -1,5 +1,19 @@
 # @twin.org/node - Changelog
 
+## [0.0.1-next.5](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.4...node-v0.0.1-next.5) (2025-06-12)
+
+
+### Features
+
+* add extend engine and server methods ([0136a6f](https://github.com/twinfoundation/node/commit/0136a6f3f4e1a82b1427ee9618b8a17c79bc7fda))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/node-core bumped from 0.0.1-next.4 to 0.0.1-next.5
+
 ## [0.0.1-next.4](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.3...node-v0.0.1-next.4) (2025-05-27)
 
 ### Bug Fixes

@@ -1,5 +1,12 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.5](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.4...node-core-v0.0.1-next.5) (2025-06-12)
+
+
+### Features
+
+* add extend engine and server methods ([0136a6f](https://github.com/twinfoundation/node/commit/0136a6f3f4e1a82b1427ee9618b8a17c79bc7fda))
+
 ## [0.0.1-next.4](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.3...node-core-v0.0.1-next.4) (2025-05-27)
 
 ### Features
