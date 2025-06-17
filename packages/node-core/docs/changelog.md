@@ -1,5 +1,14 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.7](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.6...node-core-v0.0.1-next.7) (2025-06-17)
+
+
+### Bug Fixes
+
+* adding a condition to verify if the password exists when bootstrapping ([6030a42](https://github.com/twinfoundation/node/commit/6030a42bdaf581678d96932fd0b809396bf7b8b0))
+* adding a condition to verify if the password exists when bootstrapping ([c66f396](https://github.com/twinfoundation/node/commit/c66f396717394161a7647d1f08b3d87729d96e96))
+* pr comments [#1](https://github.com/twinfoundation/node/issues/1) ([66e795b](https://github.com/twinfoundation/node/commit/66e795b16c372ab131ec1de30085aee90e4dbbd0))
+
 ## [0.0.1-next.6](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.5...node-core-v0.0.1-next.6) (2025-06-12)
 
 ### Features
