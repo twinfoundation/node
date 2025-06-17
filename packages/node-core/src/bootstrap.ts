@@ -305,12 +305,11 @@ export async function bootstrapNodeUser(
 
 			let nodeAdminUser = await authUserEntityStorage.get(email);
 
-			const generatedPassword = envVars.password ?? PasswordGenerator.generate(16);
-			const passwordBytes = Converter.utf8ToBytes(generatedPassword);
-
 			if (Is.empty(nodeAdminUser)) {
 				engineCore.logInfo(I18n.formatMessage("node.creatingNodeUser"));
 
+				const generatedPassword = envVars.password ?? PasswordGenerator.generate(16);
+				const passwordBytes = Converter.utf8ToBytes(generatedPassword);
 				const saltBytes = RandomHelper.generate(16);
 				const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
 
@@ -333,16 +332,25 @@ export async function bootstrapNodeUser(
 				engineCore.logInfo(I18n.formatMessage("node.existingNodeUser"));
 
 				// The user already exists, so double check the other details match
-				const saltBytes = Converter.base64ToBytes(nodeAdminUser.salt);
-				const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
+				let needsUpdate = false;
 
-				if (
-					nodeAdminUser.identity !== context.state.nodeIdentity ||
-					nodeAdminUser.password !== hashedPassword
-				) {
-					nodeAdminUser.password = hashedPassword;
+				if (nodeAdminUser.identity !== context.state.nodeIdentity) {
 					nodeAdminUser.identity = context.state.nodeIdentity;
+					needsUpdate = true;
+				}
 
+				if (Is.stringValue(envVars.password)) {
+					const passwordBytes = Converter.utf8ToBytes(envVars.password);
+					const saltBytes = Converter.base64ToBytes(nodeAdminUser.salt);
+					const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
+
+					if (nodeAdminUser.password !== hashedPassword) {
+						nodeAdminUser.password = hashedPassword;
+						needsUpdate = true;
+					}
+				}
+
+				if (needsUpdate) {
 					await authUserEntityStorage.set(nodeAdminUser);
 				}
 			}
