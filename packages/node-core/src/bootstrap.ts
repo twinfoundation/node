@@ -305,12 +305,11 @@ export async function bootstrapNodeUser(
 
 			let nodeAdminUser = await authUserEntityStorage.get(email);
 
-			const generatedPassword = envVars.password ?? PasswordGenerator.generate(16);
-			const passwordBytes = Converter.utf8ToBytes(generatedPassword);
-
 			if (Is.empty(nodeAdminUser)) {
 				engineCore.logInfo(I18n.formatMessage("node.creatingNodeUser"));
 
+				const generatedPassword = envVars.password ?? PasswordGenerator.generate(16);
+				const passwordBytes = Converter.utf8ToBytes(generatedPassword);
 				const saltBytes = RandomHelper.generate(16);
 				const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
 
@@ -341,6 +340,7 @@ export async function bootstrapNodeUser(
 				}
 
 				if (Is.stringValue(envVars.password)) {
+					const passwordBytes = Converter.utf8ToBytes(envVars.password);
 					const saltBytes = Converter.base64ToBytes(nodeAdminUser.salt);
 					const hashedPassword = await PasswordHelper.hashPassword(passwordBytes, saltBytes);
 
