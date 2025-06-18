@@ -1,5 +1,12 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.8](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.7...node-core-v0.0.1-next.8) (2025-06-18)
+
+
+### Features
+
+* improve default options and spec ([b538721](https://github.com/twinfoundation/node/commit/b538721902e7f65021d2715148ba59409ccce035))
+
 ## [0.0.1-next.7](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.6...node-core-v0.0.1-next.7) (2025-06-17)
 
 
