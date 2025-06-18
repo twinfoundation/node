@@ -68,12 +68,7 @@ describe("node-core", () => {
 			version: "0.0.0"
 		});
 
-		expect(ComponentFactory.names()).toEqual([
-			"logging",
-			"pap",
-			"rights-management",
-			"information"
-		]);
+		expect(ComponentFactory.names()).toEqual(["logging", "information"]);
 
 		const buildRestRoutes = startResult?.server?.getRestRoutes() ?? [];
 		expect(buildRestRoutes.map(r => r.path)).toEqual([
@@ -82,12 +77,7 @@ describe("node-core", () => {
 			"/health",
 			"/spec",
 			"logging/",
-			"logging/",
-			"rights-management/pap/",
-			"rights-management/pap/:id",
-			"rights-management/pap/:id",
-			"rights-management/pap/:id",
-			"rights-management/pap/query"
+			"logging/"
 		]);
 
 		await startResult?.server.stop();
@@ -113,7 +103,8 @@ describe("node-core", () => {
 			dataExtractorConnectors: "json-path",
 			authProcessorType: AuthenticationComponentType.EntityStorage,
 			blobStorageEnableEncryption: "true",
-			features: "node-identity,node-user"
+			features: "node-identity,node-user",
+			rightsManagementEnabled: "true"
 		};
 
 		await initialiseLocales("./dist/locales/");
