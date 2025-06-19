@@ -2013,7 +2013,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/Proof"
+									"$ref": "https://schema.twindev.org/did/Proof"
 								},
 								"examples": {
 									"identityProofCreateResponseExample": {
@@ -13800,7 +13800,7 @@
 				"type": "object",
 				"properties": {
 					"proofType": {
-						"$ref": "#/components/schemas/ProofTypes"
+						"$ref": "https://schema.twindev.org/did/ProofTypes"
 					},
 					"document": {
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
@@ -13820,7 +13820,7 @@
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
 					},
 					"proof": {
-						"$ref": "#/components/schemas/Proof"
+						"$ref": "https://schema.twindev.org/did/Proof"
 					}
 				},
 				"required": [
@@ -14324,32 +14324,6 @@
 					"name"
 				],
 				"description": "The body which contains the error."
-			},
-			"Proof": {
-				"anyOf": [
-					{
-						"$ref": "https://schema.twindev.org/did/DataIntegrityProof"
-					},
-					{
-						"$ref": "https://schema.twindev.org/did/JsonWebSignature2020Proof"
-					}
-				],
-				"description": "Interface describing a proof."
-			},
-			"ProofTypes": {
-				"anyOf": [
-					{
-						"type": "string",
-						"const": "DataIntegrityProof",
-						"description": "The type for Data Integrity Proof."
-					},
-					{
-						"type": "string",
-						"const": "JsonWebSignature2020",
-						"description": "The type for Json Web Signature 2020."
-					}
-				],
-				"description": "The types for proofs."
 			},
 			"RefreshTokenResponse": {
 				"type": "object",
