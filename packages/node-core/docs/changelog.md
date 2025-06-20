@@ -1,5 +1,12 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.9](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.8...node-core-v0.0.1-next.9) (2025-06-20)
+
+
+### Features
+
+* additional startup logging ([0740293](https://github.com/twinfoundation/node/commit/0740293b366032f2907046603abf587c9c324aff))
+
 ## [0.0.1-next.8](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.7...node-core-v0.0.1-next.8) (2025-06-18)
 
 
