@@ -1,5 +1,19 @@
 # @twin.org/node - Changelog
 
+## [0.0.1-next.9](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.8...node-v0.0.1-next.9) (2025-06-20)
+
+
+### Features
+
+* update spec generation config ([cff633a](https://github.com/twinfoundation/node/commit/cff633a0ffb73ad652d5f1bae653fa91e82dc8ab))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/node-core bumped from 0.0.1-next.8 to 0.0.1-next.9
+
 ## [0.0.1-next.8](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.7...node-v0.0.1-next.8) (2025-06-18)
 
 
