@@ -125,13 +125,17 @@ async function bootstrapIdentity(
 			engineDefaultTypes.identityResolverConnector
 		);
 		identityDocument = await identityResolverConnector.resolveDocument(nodeIdentity);
-		engineCore.logInfo(I18n.formatMessage("node.existingNodeIdentity"));
+		engineCore.logInfo(I18n.formatMessage("node.existingNodeIdentity", { identity: nodeIdentity }));
 	} catch {}
 
 	if (Is.empty(identityDocument)) {
 		engineCore.logInfo(I18n.formatMessage("node.generatingNodeIdentity"));
 
 		identityDocument = await identityConnector.createDocument(nodeIdentity);
+
+		engineCore.logInfo(
+			I18n.formatMessage("node.createdNodeIdentity", { identity: identityDocument.id })
+		);
 	}
 
 	if (engineDefaultTypes.identityConnector === IdentityConnectorType.Iota) {
@@ -306,7 +310,7 @@ export async function bootstrapNodeUser(
 			let nodeAdminUser = await authUserEntityStorage.get(email);
 
 			if (Is.empty(nodeAdminUser)) {
-				engineCore.logInfo(I18n.formatMessage("node.creatingNodeUser"));
+				engineCore.logInfo(I18n.formatMessage("node.creatingNodeUser", { email }));
 
 				const generatedPassword = envVars.password ?? PasswordGenerator.generate(16);
 				const passwordBytes = Converter.utf8ToBytes(generatedPassword);
@@ -329,7 +333,7 @@ export async function bootstrapNodeUser(
 
 				await authUserEntityStorage.set(nodeAdminUser);
 			} else {
-				engineCore.logInfo(I18n.formatMessage("node.existingNodeUser"));
+				engineCore.logInfo(I18n.formatMessage("node.existingNodeUser", { email }));
 
 				// The user already exists, so double check the other details match
 				let needsUpdate = false;
@@ -366,7 +370,9 @@ export async function bootstrapNodeUser(
 					userProfile = await identityProfileConnector.get(context.state.nodeIdentity);
 				} catch {}
 				if (Is.empty(userProfile)) {
-					engineCore.logInfo(I18n.formatMessage("node.creatingUserProfile"));
+					engineCore.logInfo(
+						I18n.formatMessage("node.creatingUserProfile", { identity: context.state.nodeIdentity })
+					);
 
 					const publicProfile: WithContext<Person> = {
 						"@context": "https://schema.org",
@@ -386,7 +392,9 @@ export async function bootstrapNodeUser(
 						privateProfile
 					);
 				} else {
-					engineCore.logInfo(I18n.formatMessage("node.existingUserProfile"));
+					engineCore.logInfo(
+						I18n.formatMessage("node.existingUserProfile", { identity: context.state.nodeIdentity })
+					);
 				}
 			}
 		}
@@ -422,20 +430,22 @@ export async function bootstrapAttestationMethod(
 			context.state.nodeIdentity
 		);
 
+		const fullMethodId = `${identityDocument.id}#${envVars.attestationVerificationMethodId}`;
+
 		let createVm = true;
 		try {
-			DocumentHelper.getVerificationMethod(
-				identityDocument,
-				`${identityDocument.id}#${envVars.attestationVerificationMethodId}`,
-				"assertionMethod"
-			);
+			DocumentHelper.getVerificationMethod(identityDocument, fullMethodId, "assertionMethod");
 			createVm = false;
 		} catch {}
 
 		if (createVm) {
 			// Add attestation verification method to DID, the correct node context is now in place
 			// so the keys for the verification method will be stored correctly
-			engineCore.logInfo(I18n.formatMessage("node.addingAttestation"));
+			engineCore.logInfo(
+				I18n.formatMessage("node.addingAttestation", {
+					methodId: fullMethodId
+				})
+			);
 			await identityConnector.addVerificationMethod(
 				context.state.nodeIdentity,
 				context.state.nodeIdentity,
@@ -443,7 +453,11 @@ export async function bootstrapAttestationMethod(
 				envVars.attestationVerificationMethodId
 			);
 		} else {
-			engineCore.logInfo(I18n.formatMessage("node.existingAttestation"));
+			engineCore.logInfo(
+				I18n.formatMessage("node.existingAttestation", {
+					methodId: fullMethodId
+				})
+			);
 		}
 	}
 }
@@ -477,20 +491,22 @@ export async function bootstrapImmutableProofMethod(
 			context.state.nodeIdentity
 		);
 
+		const fullMethodId = `${identityDocument.id}#${envVars.immutableProofVerificationMethodId}`;
+
 		let createVm = true;
 		try {
-			DocumentHelper.getVerificationMethod(
-				identityDocument,
-				`${identityDocument.id}#${envVars.immutableProofVerificationMethodId}`,
-				"assertionMethod"
-			);
+			DocumentHelper.getVerificationMethod(identityDocument, fullMethodId, "assertionMethod");
 			createVm = false;
 		} catch {}
 
 		if (createVm) {
 			// Add AIG verification method to DID, the correct node context is now in place
 			// so the keys for the verification method will be stored correctly
-			engineCore.logInfo(I18n.formatMessage("node.addingImmutableProof"));
+			engineCore.logInfo(
+				I18n.formatMessage("node.addingImmutableProof", {
+					methodId: fullMethodId
+				})
+			);
 			await identityConnector.addVerificationMethod(
 				context.state.nodeIdentity,
 				context.state.nodeIdentity,
@@ -498,7 +514,11 @@ export async function bootstrapImmutableProofMethod(
 				envVars.immutableProofVerificationMethodId
 			);
 		} else {
-			engineCore.logInfo(I18n.formatMessage("node.existingImmutableProof"));
+			engineCore.logInfo(
+				I18n.formatMessage("node.existingImmutableProof", {
+					methodId: fullMethodId
+				})
+			);
 		}
 	}
 }
@@ -534,13 +554,10 @@ export async function bootstrapBlobEncryption(
 		} catch {}
 
 		if (Is.empty(existingKey)) {
-			engineCore.logInfo(I18n.formatMessage("node.creatingBlobEncryptionKey"));
-			await vaultConnector.createKey(
-				`${context.state.nodeIdentity}/${envVars.blobStorageEncryptionKey}`,
-				VaultKeyType.ChaCha20Poly1305
-			);
+			engineCore.logInfo(I18n.formatMessage("node.creatingBlobEncryptionKey", { keyName }));
+			await vaultConnector.createKey(keyName, VaultKeyType.ChaCha20Poly1305);
 		} else {
-			engineCore.logInfo(I18n.formatMessage("node.existingBlobEncryptionKey"));
+			engineCore.logInfo(I18n.formatMessage("node.existingBlobEncryptionKey", { keyName }));
 		}
 	}
 }
@@ -574,13 +591,10 @@ export async function bootstrapAuth(
 		} catch {}
 
 		if (Is.empty(existingKey)) {
-			engineCore.logInfo(I18n.formatMessage("node.creatingAuthKey"));
-			await vaultConnector.createKey(
-				`${context.state.nodeIdentity}/${envVars.authSigningKeyId}`,
-				VaultKeyType.Ed25519
-			);
+			engineCore.logInfo(I18n.formatMessage("node.creatingAuthKey", { keyName }));
+			await vaultConnector.createKey(keyName, VaultKeyType.Ed25519);
 		} else {
-			engineCore.logInfo(I18n.formatMessage("node.existingAuthKey"));
+			engineCore.logInfo(I18n.formatMessage("node.existingAuthKey", { keyName }));
 		}
 	}
 }
