@@ -28,5 +28,5 @@ jobs:
           context: ./apps/node/deploy
           push: true
           tags: |
-            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPO }}:${{ github.run_number }}
-            ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_REPO }}:latest
+            ${{ env.DOCKER_REPO }}:${{ github.run_number }}
+            ${{ env.DOCKER_REPO }}:latest
