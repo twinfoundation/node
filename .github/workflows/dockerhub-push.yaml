@@ -1,7 +1,6 @@
 name: Twin node Docker Image CI/CD
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
