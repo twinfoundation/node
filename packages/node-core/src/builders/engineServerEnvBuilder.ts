@@ -5,6 +5,7 @@ import { Coerce, Is } from "@twin.org/core";
 import type { IEngineCoreConfig } from "@twin.org/engine-models";
 import { addDefaultRestPaths, addDefaultSocketPaths } from "@twin.org/engine-server";
 import {
+	AuthenticationAdminComponentType,
 	AuthenticationComponentType,
 	type IEngineServerConfig,
 	InformationComponentType,
@@ -45,8 +46,6 @@ export function buildEngineServerConfiguration(
 			: undefined,
 		corsOrigins: Is.stringValue(envVars.corsOrigins) ? envVars.corsOrigins.split(",") : undefined
 	};
-
-	const authProcessorType = envVars.authProcessorType;
 
 	const serverConfig: IEngineServerConfig = {
 		...coreEngineConfig,
@@ -129,6 +128,18 @@ export function buildEngineServerConfiguration(
 		}
 	});
 
+	const authAdminProcessorType = envVars.authAdminProcessorType;
+	if (authAdminProcessorType === AuthenticationAdminComponentType.EntityStorage) {
+		serverConfig.types.authenticationAdminComponent ??= [];
+		serverConfig.types.authenticationAdminComponent.push({
+			type: AuthenticationAdminComponentType.EntityStorage,
+			options: {
+				config: {}
+			}
+		});
+	}
+
+	const authProcessorType = envVars.authProcessorType;
 	if (authProcessorType === AuthenticationComponentType.EntityStorage) {
 		serverConfig.types.authenticationComponent ??= [];
 		serverConfig.types.authenticationComponent.push({

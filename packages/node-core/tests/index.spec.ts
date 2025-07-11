@@ -3,7 +3,10 @@
 import type { AuthenticationUser } from "@twin.org/api-auth-entity-storage-service";
 import { ComponentFactory, Factory } from "@twin.org/core";
 import { MemoryStateStorage } from "@twin.org/engine-core";
-import { AuthenticationComponentType } from "@twin.org/engine-server-types";
+import {
+	AuthenticationAdminComponentType,
+	AuthenticationComponentType
+} from "@twin.org/engine-server-types";
 import {
 	AttestationConnectorType,
 	BackgroundTaskConnectorType,
@@ -101,6 +104,7 @@ describe("node-core", () => {
 			TWIN_NODE_WALLET_CONNECTOR: WalletConnectorType.EntityStorage,
 			TWIN_NODE_DATA_CONVERTER_CONNECTORS: "json,xml",
 			TWIN_NODE_DATA_EXTRACTOR_CONNECTORS: "json-path",
+			TWIN_NODE_AUTH_ADMIN_PROCESSOR_TYPE: AuthenticationAdminComponentType.EntityStorage,
 			TWIN_NODE_AUTH_PROCESSOR_TYPE: AuthenticationComponentType.EntityStorage,
 			TWIN_NODE_BLOB_STORAGE_ENABLE_ENCRYPTION: "true",
 			TWIN_NODE_FEATURES: "node-identity,node-user",
@@ -147,6 +151,7 @@ describe("node-core", () => {
 			"fedcat",
 			"pap",
 			"rights-management",
+			"authentication-admin-entity-storage",
 			"authentication-entity-storage",
 			"information"
 		]);
@@ -160,6 +165,7 @@ describe("node-core", () => {
 			"/authentication/login",
 			"/authentication/logout",
 			"/authentication/refresh",
+			"/authentication/:email/password",
 			"/logging",
 			"/logging",
 			"/telemetry/metric",

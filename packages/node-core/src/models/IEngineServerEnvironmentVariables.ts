@@ -36,6 +36,11 @@ export interface IEngineServerEnvironmentVariables {
 	httpExposedHeaders?: string;
 
 	/**
+	 * The type of auth admin processor to use on the API: entity-storage.
+	 */
+	authAdminProcessorType?: string;
+
+	/**
 	 * The type of auth processor to use on the API: entity-storage.
 	 */
 	authProcessorType?: string;
