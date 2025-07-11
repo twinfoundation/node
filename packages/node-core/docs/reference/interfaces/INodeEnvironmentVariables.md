@@ -1232,6 +1232,18 @@ The CORS headers to expose.
 
 ***
 
+### authAdminProcessorType?
+
+> `optional` **authAdminProcessorType**: `string`
+
+The type of auth admin processor to use on the API: entity-storage.
+
+#### Inherited from
+
+[`IEngineServerEnvironmentVariables`](IEngineServerEnvironmentVariables.md).[`authAdminProcessorType`](IEngineServerEnvironmentVariables.md#authadminprocessortype)
+
+***
+
 ### authProcessorType?
 
 > `optional` **authProcessorType**: `string`

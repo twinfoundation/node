@@ -56,6 +56,14 @@ The CORS headers to expose.
 
 ***
 
+### authAdminProcessorType?
+
+> `optional` **authAdminProcessorType**: `string`
+
+The type of auth admin processor to use on the API: entity-storage.
+
+***
+
 ### authProcessorType?
 
 > `optional` **authProcessorType**: `string`
