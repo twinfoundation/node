@@ -1,5 +1,20 @@
 # @twin.org/node - Changelog
 
+## [0.0.1-next.10](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.9...node-v0.0.1-next.10) (2025-07-11)
+
+
+### Features
+
+* add updated config vars ([ebe8178](https://github.com/twinfoundation/node/commit/ebe81788ce53ddf3d6925a5f2f6dac381f84f06c))
+* migrate env config from engine to node ([5da29b8](https://github.com/twinfoundation/node/commit/5da29b8d714495308320d237a68e84355bba2b47))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @twin.org/node-core bumped from 0.0.1-next.9 to 0.0.1-next.10
+
 ## [0.0.1-next.9](https://github.com/twinfoundation/node/compare/node-v0.0.1-next.8...node-v0.0.1-next.9) (2025-06-20)
 
 
