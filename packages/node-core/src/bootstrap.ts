@@ -3,7 +3,7 @@
 import { PasswordHelper, type AuthenticationUser } from "@twin.org/api-auth-entity-storage-service";
 import { Coerce, Converter, I18n, Is, RandomHelper, StringHelper, Urn } from "@twin.org/core";
 import { Bip39, PasswordGenerator } from "@twin.org/crypto";
-import type { IEngineCore, IEngineCoreContext } from "@twin.org/engine-models";
+import type { IEngineCore, IEngineCoreContext, IEngineState } from "@twin.org/engine-models";
 import type { IEngineServerConfig } from "@twin.org/engine-server-types";
 import { IdentityConnectorType, WalletConnectorType } from "@twin.org/engine-types";
 import {
@@ -21,8 +21,7 @@ import { VaultConnectorFactory, VaultKeyType, type IVaultConnector } from "@twin
 import type { WalletAddress } from "@twin.org/wallet-connector-entity-storage";
 import { WalletConnectorFactory } from "@twin.org/wallet-models";
 import type { Person, WithContext } from "schema-dts";
-import type { INodeState } from "./models/INodeState";
-import type { INodeVariables } from "./models/INodeVariables";
+import type { INodeEnvironmentVariables } from "./models/INodeEnvironmentVariables";
 import { NodeFeatures } from "./models/nodeFeatures";
 import { getFeatures } from "./utils";
 
@@ -36,8 +35,8 @@ const DEFAULT_NODE_USERNAME = "admin@node";
  */
 export async function bootstrap(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables
 ): Promise<void> {
 	const features = getFeatures(envVars);
 
@@ -58,8 +57,8 @@ export async function bootstrap(
  */
 export async function bootstrapNodeIdentity(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	if (features.includes(NodeFeatures.NodeIdentity)) {
@@ -87,7 +86,6 @@ export async function bootstrapNodeIdentity(
 			await finaliseMnemonic(vaultConnector, workingIdentity, finalIdentity);
 
 			context.state.nodeIdentity = finalIdentity;
-			context.state.addresses = addresses;
 			context.stateDirty = true;
 
 			engineCore.logInfo(
@@ -109,7 +107,7 @@ export async function bootstrapNodeIdentity(
  */
 async function bootstrapIdentity(
 	engineCore: IEngineCore,
-	envVars: INodeVariables,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[],
 	nodeIdentity: string
 ): Promise<string> {
@@ -162,7 +160,7 @@ async function bootstrapIdentity(
  */
 async function bootstrapWallet(
 	engineCore: IEngineCore,
-	envVars: INodeVariables,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[],
 	nodeIdentity: string
 ): Promise<string[]> {
@@ -199,7 +197,7 @@ async function bootstrapWallet(
  */
 async function finaliseWallet(
 	engineCore: IEngineCore,
-	envVars: INodeVariables,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[],
 	finalIdentity: string,
 	addresses: string[]
@@ -230,7 +228,7 @@ async function finaliseWallet(
  */
 async function bootstrapMnemonic(
 	engineCore: IEngineCore,
-	envVars: INodeVariables,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[],
 	vaultConnector: IVaultConnector,
 	nodeIdentity: string
@@ -291,8 +289,8 @@ async function finaliseMnemonic(
  */
 export async function bootstrapNodeUser(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	if (features.includes(NodeFeatures.NodeUser)) {
@@ -410,8 +408,8 @@ export async function bootstrapNodeUser(
  */
 export async function bootstrapAttestationMethod(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	if (
@@ -471,8 +469,8 @@ export async function bootstrapAttestationMethod(
  */
 export async function bootstrapImmutableProofMethod(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	const engineDefaultTypes = engineCore.getDefaultTypes();
@@ -532,8 +530,8 @@ export async function bootstrapImmutableProofMethod(
  */
 export async function bootstrapBlobEncryption(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	if (
@@ -571,8 +569,8 @@ export async function bootstrapBlobEncryption(
  */
 export async function bootstrapAuth(
 	engineCore: IEngineCore,
-	context: IEngineCoreContext<IEngineServerConfig, INodeState>,
-	envVars: INodeVariables,
+	context: IEngineCoreContext<IEngineServerConfig, IEngineState>,
+	envVars: INodeEnvironmentVariables,
 	features: NodeFeatures[]
 ): Promise<void> {
 	const engineDefaultTypes = engineCore.getDefaultTypes();

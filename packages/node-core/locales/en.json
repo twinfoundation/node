@@ -1,7 +1,6 @@
 {
 	"error": {
 		"node": {
-			"noEnvVars": "There are no environment variables starting \"{prefix}\" the server will not start without them, please set them in the shell or create a .env file",
 			"storageFileRootNotSet": "{storageFileRoot} is not set, the server will not start without it, please set it in the shell or create a .env file"
 		}
 	},

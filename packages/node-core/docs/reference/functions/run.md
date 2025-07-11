@@ -1,14 +1,14 @@
 # Function: run()
 
-> **run**(`options?`): `Promise`\<`void`\>
+> **run**(`nodeOptions?`): `Promise`\<`void`\>
 
 Run the TWIN Node server.
 
 ## Parameters
 
-### options?
+### nodeOptions?
 
-[`IRunOptions`](../interfaces/IRunOptions.md)
+[`INodeOptions`](../interfaces/INodeOptions.md)
 
 Optional configuration options for running the server.
 

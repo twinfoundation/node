@@ -2,9 +2,10 @@
 
 ## Interfaces
 
-- [INodeState](interfaces/INodeState.md)
-- [INodeVariables](interfaces/INodeVariables.md)
-- [IRunOptions](interfaces/IRunOptions.md)
+- [IEngineEnvironmentVariables](interfaces/IEngineEnvironmentVariables.md)
+- [IEngineServerEnvironmentVariables](interfaces/IEngineServerEnvironmentVariables.md)
+- [INodeEnvironmentVariables](interfaces/INodeEnvironmentVariables.md)
+- [INodeOptions](interfaces/INodeOptions.md)
 
 ## Type Aliases
 
@@ -23,9 +24,12 @@
 - [bootstrapImmutableProofMethod](functions/bootstrapImmutableProofMethod.md)
 - [bootstrapBlobEncryption](functions/bootstrapBlobEncryption.md)
 - [bootstrapAuth](functions/bootstrapAuth.md)
+- [buildEngineConfiguration](functions/buildEngineConfiguration.md)
 - [run](functions/run.md)
+- [buildConfiguration](functions/buildConfiguration.md)
 - [start](functions/start.md)
 - [initialiseLocales](functions/initialiseLocales.md)
 - [getExecutionDirectory](functions/getExecutionDirectory.md)
 - [fileExists](functions/fileExists.md)
+- [loadJsonFile](functions/loadJsonFile.md)
 - [getFeatures](functions/getFeatures.md)

@@ -1,61 +1,31 @@
 # Function: start()
 
-> **start**(`serverInfo`, `envVarsPrefix`, `envVars`, `openApiSpecFile?`, `stateStorage?`, `extendConfig?`, `extendEngine?`, `extendEngineServer?`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
+> **start**(`nodeOptions`, `engineServerConfig`, `envVars`): `Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, `IEngineState`\>; `server`: `EngineServer`; \}\>
 
 Start the engine server.
 
 ## Parameters
 
-### serverInfo
+### nodeOptions
 
-`IServerInfo`
+Optional run options for the engine server.
 
-The server information.
+`undefined` | [`INodeOptions`](../interfaces/INodeOptions.md)
 
-### envVarsPrefix
+### engineServerConfig
 
-`string`
+`IEngineServerConfig`
 
-The prefix for the environment variables.
+The configuration for the engine server.
 
 ### envVars
 
-[`INodeVariables`](../interfaces/INodeVariables.md)
+[`INodeEnvironmentVariables`](../interfaces/INodeEnvironmentVariables.md)
 
 The environment variables.
 
-### openApiSpecFile?
-
-`string`
-
-Path to the OpenAPI spec file.
-
-### stateStorage?
-
-`IEngineStateStorage`\<`IEngineState`\>
-
-The state storage.
-
-### extendConfig?
-
-(`config`) => `Promise`\<`void`\>
-
-Extends the engine configuration with any additional custom configuration.
-
-### extendEngine?
-
-(`engine`) => `Promise`\<`void`\>
-
-Extends the engine with any additional options.
-
-### extendEngineServer?
-
-(`engineServer`) => `Promise`\<`void`\>
-
-Extends the engine server with any additional options.
-
 ## Returns
 
-`Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>; `server`: `EngineServer`; \}\>
+`Promise`\<`undefined` \| \{ `engine`: `Engine`\<`IEngineServerConfig`, `IEngineState`\>; `server`: `EngineServer`; \}\>
 
 The engine server.

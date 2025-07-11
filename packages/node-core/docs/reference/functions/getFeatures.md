@@ -8,7 +8,7 @@ Get the features that are enabled on the node.
 
 ### env
 
-[`INodeVariables`](../interfaces/INodeVariables.md)
+[`INodeEnvironmentVariables`](../interfaces/INodeEnvironmentVariables.md)
 
 The environment variables for the node.
 

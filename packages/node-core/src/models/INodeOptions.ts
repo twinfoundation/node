@@ -2,11 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0.
 import type { IEngineCore, IEngineServer, IEngineStateStorage } from "@twin.org/engine-models";
 import type { IEngineConfig } from "@twin.org/engine-types";
+import type { INodeEnvironmentVariables } from "./INodeEnvironmentVariables";
 
 /**
  * The options when running the node.
  */
-export interface IRunOptions {
+export interface INodeOptions {
 	/**
 	 * The name of the server, defaults to "TWIN Node Server".
 	 * @default "TWIN Node Server"
@@ -29,6 +30,19 @@ export interface IRunOptions {
 	envPrefix?: string;
 
 	/**
+	 * A list of JSON files to load as configuration files.
+	 * The files will be loaded in the order they are provided, and the last one will
+	 * override any previous values.
+	 */
+	configFilenames?: string[];
+
+	/**
+	 * Provides the ability to have some initial custom configuration for the engine.
+	 * This will be merged with any configuration loaded from the environment variables.
+	 */
+	config?: IEngineConfig;
+
+	/**
 	 * The directory to override the execution location, defaults to process directory.
 	 */
 	executionDirectory?: string;
@@ -42,6 +56,11 @@ export interface IRunOptions {
 	 * The path to the OpenAPI spec file, defaults to docs/open-api/spec.json.
 	 */
 	openApiSpecFile?: string;
+
+	/**
+	 * Method to extend the engine environment variables with any additional custom configuration.
+	 */
+	extendEnvVars?: (envVars: INodeEnvironmentVariables) => Promise<void>;
 
 	/**
 	 * Method to extend the engine configuration with any additional custom configuration.

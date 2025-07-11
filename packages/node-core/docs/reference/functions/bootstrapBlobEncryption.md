@@ -14,13 +14,13 @@ The engine core for the node.
 
 ### context
 
-`IEngineCoreContext`\<`IEngineServerConfig`, [`INodeState`](../interfaces/INodeState.md)\>
+`IEngineCoreContext`\<`IEngineServerConfig`, `IEngineState`\>
 
 The context for the node.
 
 ### envVars
 
-[`INodeVariables`](../interfaces/INodeVariables.md)
+[`INodeEnvironmentVariables`](../interfaces/INodeEnvironmentVariables.md)
 
 The environment variables for the node.
 

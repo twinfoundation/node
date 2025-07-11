@@ -4,7 +4,7 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { I18n, Is, type ILocaleDictionary } from "@twin.org/core";
-import type { INodeVariables } from "./models/INodeVariables";
+import type { INodeEnvironmentVariables } from "./models/INodeEnvironmentVariables";
 import { NodeFeatures } from "./models/nodeFeatures";
 
 /**
@@ -45,11 +45,21 @@ export async function fileExists(filename: string): Promise<boolean> {
 }
 
 /**
+ * Load the JSON file.
+ * @param filename The filename of the JSON file to load.
+ * @returns The contents of the JSON file or null if it could not be loaded.
+ */
+export async function loadJsonFile<T>(filename: string): Promise<T> {
+	const content = await readFile(filename, "utf8");
+	return JSON.parse(content) as T;
+}
+
+/**
  * Get the features that are enabled on the node.
  * @param env The environment variables for the node.
  * @returns The features that are enabled on the node.
  */
-export function getFeatures(env: INodeVariables): NodeFeatures[] {
+export function getFeatures(env: INodeEnvironmentVariables): NodeFeatures[] {
 	if (Is.empty(env.features)) {
 		return [];
 	}

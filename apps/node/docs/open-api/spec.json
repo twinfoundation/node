@@ -2852,7 +2852,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					}
 				],
@@ -3100,7 +3103,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -3317,17 +3323,23 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "string"
+							"type": [
+								"boolean",
+								"string"
+							]
 						},
 						"example": "true"
 					},
 					{
-						"name": "disableDecryption",
-						"description": "Disables decryption if enabled by default.",
+						"name": "decompress",
+						"description": "If the content should be decompressed, if it was compressed when stored, defaults to true.",
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "string"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -3976,7 +3988,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					}
 				],
@@ -4526,7 +4541,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -4535,7 +4553,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -4553,7 +4574,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					}
 				],
@@ -4801,7 +4825,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -4810,7 +4837,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -4828,7 +4858,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					}
 				],
@@ -8613,7 +8646,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -8820,7 +8856,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -8829,7 +8868,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -9351,7 +9393,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -9573,7 +9618,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -9582,7 +9630,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -9591,7 +9642,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -9600,7 +9654,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -10200,7 +10257,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -10797,7 +10857,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -10806,7 +10869,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -10824,7 +10890,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -11060,7 +11129,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "boolean"
+							"type": [
+								"boolean",
+								"string"
+							]
 						}
 					},
 					{
@@ -11078,7 +11150,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -11712,7 +11787,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -12016,7 +12094,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -12367,7 +12448,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -12686,7 +12770,10 @@
 						"in": "query",
 						"required": false,
 						"schema": {
-							"type": "number"
+							"type": [
+								"number",
+								"string"
+							]
 						}
 					},
 					{
@@ -13259,6 +13346,9 @@
 						"description": "Disables encryption if enabled by default.",
 						"default": false
 					},
+					"compress": {
+						"$ref": "https://schema.twindev.org/blob-storage/BlobStorageCompressionType"
+					},
 					"overrideVaultKeyId": {
 						"type": "string",
 						"description": "Use a different vault key id for encryption, if not provided the default vault key id will be used.",
@@ -13288,16 +13378,6 @@
 					},
 					"metadata": {
 						"$ref": "https://schema.twindev.org/json-ld/JsonLdNodeObject"
-					},
-					"disableEncryption": {
-						"type": "boolean",
-						"description": "Disables encryption if enabled by default.",
-						"default": false
-					},
-					"overrideVaultKeyId": {
-						"type": "string",
-						"description": "Use a different vault key id for encryption, if not provided the default vault key id will be used.",
-						"default": "undefined"
 					}
 				},
 				"additionalProperties": false,

@@ -27,7 +27,8 @@ import type {
 	IdentityProfile
 } from "@twin.org/identity-connector-entity-storage";
 import type { VaultKey, VaultSecret } from "@twin.org/vault-connector-entity-storage";
-import type { INodeVariables } from "../src/models/INodeVariables";
+import type { INodeOptions } from "../src/models/INodeOptions";
+import { buildConfiguration } from "../src/node";
 import { start } from "../src/server";
 import { initialiseLocales } from "../src/utils";
 
@@ -37,9 +38,10 @@ describe("node-core", () => {
 	});
 
 	test("Can start and bootstrap the server with minimal config in memory", async () => {
-		const config: INodeVariables = {
-			debug: "true",
-			entityStorageConnectorType: EntityStorageConnectorType.Memory
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_DEBUG: "true",
+			TWIN_NODE_ENTITY_STORAGE_CONNECTOR_TYPE: EntityStorageConnectorType.Memory,
+			TWIN_NODE_TASK_SCHEDULER_ENABLED: "false"
 		};
 
 		await initialiseLocales("./dist/locales/");
@@ -49,16 +51,14 @@ describe("node-core", () => {
 			componentStates: {}
 		});
 
-		const startResult = await start(
-			{
-				name: "foo",
-				version: "0.0.0"
-			},
-			"TWIN_NODE_",
-			config,
-			"",
-			memoryStateStorage
-		);
+		const nodeOptions: INodeOptions = { envPrefix: "TWIN_NODE_", stateStorage: memoryStateStorage };
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
 
 		expect(startResult).toBeDefined();
 
@@ -76,51 +76,49 @@ describe("node-core", () => {
 			"/info",
 			"/health",
 			"/spec",
-			"logging/",
-			"logging/"
+			"/logging",
+			"/logging"
 		]);
 
 		await startResult?.server.stop();
 	});
 
 	test("Can start and bootstrap the server in memory", async () => {
-		const config: INodeVariables = {
-			entityStorageConnectorType: EntityStorageConnectorType.Memory,
-			blobStorageConnectorType: BlobStorageConnectorType.Memory,
-			loggingConnector: LoggingConnectorType.EntityStorage,
-			telemetryConnector: TelemetryConnectorType.EntityStorage,
-			backgroundTaskConnector: BackgroundTaskConnectorType.EntityStorage,
-			vaultConnector: VaultConnectorType.EntityStorage,
-			identityConnector: IdentityConnectorType.EntityStorage,
-			identityResolverConnector: IdentityResolverConnectorType.EntityStorage,
-			identityProfileConnector: IdentityProfileConnectorType.EntityStorage,
-			nftConnector: NftConnectorType.EntityStorage,
-			verifiableStorageConnector: VerifiableStorageConnectorType.EntityStorage,
-			attestationConnector: AttestationConnectorType.Nft,
-			faucetConnector: FaucetConnectorType.EntityStorage,
-			walletConnector: WalletConnectorType.EntityStorage,
-			dataConverterConnectors: "json,xml",
-			dataExtractorConnectors: "json-path",
-			authProcessorType: AuthenticationComponentType.EntityStorage,
-			blobStorageEnableEncryption: "true",
-			features: "node-identity,node-user",
-			rightsManagementEnabled: "true"
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_ENTITY_STORAGE_CONNECTOR_TYPE: EntityStorageConnectorType.Memory,
+			TWIN_NODE_BLOB_STORAGE_CONNECTOR_TYPE: BlobStorageConnectorType.Memory,
+			TWIN_NODE_LOGGING_CONNECTOR: LoggingConnectorType.EntityStorage,
+			TWIN_NODE_TELEMETRY_CONNECTOR: TelemetryConnectorType.EntityStorage,
+			TWIN_NODE_BACKGROUND_TASK_CONNECTOR: BackgroundTaskConnectorType.EntityStorage,
+			TWIN_NODE_VAULT_CONNECTOR: VaultConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_CONNECTOR: IdentityConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_RESOLVER_CONNECTOR: IdentityResolverConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_PROFILE_CONNECTOR: IdentityProfileConnectorType.EntityStorage,
+			TWIN_NODE_NFT_CONNECTOR: NftConnectorType.EntityStorage,
+			TWIN_NODE_VERIFIABLE_STORAGE_CONNECTOR: VerifiableStorageConnectorType.EntityStorage,
+			TWIN_NODE_ATTESTATION_CONNECTOR: AttestationConnectorType.Nft,
+			TWIN_NODE_FAUCET_CONNECTOR: FaucetConnectorType.EntityStorage,
+			TWIN_NODE_WALLET_CONNECTOR: WalletConnectorType.EntityStorage,
+			TWIN_NODE_DATA_CONVERTER_CONNECTORS: "json,xml",
+			TWIN_NODE_DATA_EXTRACTOR_CONNECTORS: "json-path",
+			TWIN_NODE_AUTH_PROCESSOR_TYPE: AuthenticationComponentType.EntityStorage,
+			TWIN_NODE_BLOB_STORAGE_ENABLE_ENCRYPTION: "true",
+			TWIN_NODE_FEATURES: "node-identity,node-user",
+			TWIN_NODE_RIGHTS_MANAGEMENT_ENABLED: "true"
 		};
 
 		await initialiseLocales("./dist/locales/");
 
 		const memoryStateStorage = new MemoryStateStorage();
 
-		const startResult = await start(
-			{
-				name: "foo",
-				version: "0.0.0"
-			},
-			"TWIN_NODE_",
-			config,
-			"",
-			memoryStateStorage
-		);
+		const nodeOptions: INodeOptions = { envPrefix: "TWIN_NODE_", stateStorage: memoryStateStorage };
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
 
 		expect(startResult).toBeDefined();
 
@@ -132,6 +130,7 @@ describe("node-core", () => {
 
 		expect(ComponentFactory.names()).toEqual([
 			"logging",
+			"task-scheduler",
 			"telemetry",
 			"blob",
 			"verifiable",
@@ -158,105 +157,105 @@ describe("node-core", () => {
 			"/info",
 			"/health",
 			"/spec",
-			"authentication/login",
-			"authentication/logout",
-			"authentication/refresh",
-			"logging/",
-			"logging/",
-			"telemetry/metric",
-			"telemetry/metric/:id",
-			"telemetry/metric/:id",
-			"telemetry/metric/:id/value",
-			"telemetry/metric/:id",
-			"telemetry/metric",
-			"telemetry/metric/:id/value",
-			"blob/",
-			"blob/:id",
-			"blob/:id/content",
-			"blob/:id",
-			"blob/:id",
-			"blob/",
-			"identity/",
-			"identity/:identity/verification-method",
-			"identity/:identity/verification-method/:verificationMethodId",
-			"identity/:identity/service",
-			"identity/:identity/service/:serviceId",
-			"identity/:identity/verifiable-credential",
-			"identity/verifiable-credential/verify",
-			"identity/:identity/verifiable-credential/revoke/:revocationIndex",
-			"identity/:identity/verifiable-credential/unrevoke/:revocationIndex",
-			"identity/:identity/verifiable-presentation",
-			"identity/verifiable-presentation/verify",
-			"identity/:identity/proof",
-			"identity/proof/verify",
-			"identity/:identity",
-			"identity/profile/",
-			"identity/profile/",
-			"identity/profile/:identity/public",
-			"identity/profile/",
-			"identity/profile/",
-			"identity/profile/query/",
-			"nft/",
-			"nft/:id",
-			"nft/:id",
-			"nft/:id/transfer",
-			"nft/:id",
-			"verifiable/",
-			"verifiable/:id",
-			"verifiable/:id",
-			"verifiable/:id",
-			"attestation/",
-			"attestation/:id",
-			"attestation/:id/transfer",
-			"attestation/:id",
-			"immutable-proof/",
-			"immutable-proof/:id",
-			"immutable-proof/:id/verify",
-			"aig/",
-			"aig/:id",
-			"aig/:id",
-			"aig/",
-			"ais/",
-			"ais/:id",
-			"ais/:id",
-			"ais/:id",
-			"ais/",
-			"ais/:id",
-			"ais/:id/:entryId",
-			"ais/:id/:entryId/object",
-			"ais/:id/:entryId",
-			"ais/:id/:entryId",
-			"ais/:id/entries",
-			"ais/:id/entries/objects",
-			"data-processing/rule-group/:id",
-			"data-processing/rule-group/:id",
-			"data-processing/rule-group/:id",
-			"data-processing/extract",
-			"data-processing/convert",
-			"data-processing/rule-group",
-			"documents/",
-			"documents/:auditableItemGraphDocumentId",
-			"documents/:auditableItemGraphDocumentId",
-			"documents/:auditableItemGraphDocumentId/:revision",
-			"documents/:auditableItemGraphDocumentId/:revision",
-			"documents/",
-			"federated-catalogue/participant-credentials",
-			"federated-catalogue/service-offering-credentials",
-			"federated-catalogue/data-resource-credentials",
-			"federated-catalogue/data-space-connector-credentials",
-			"federated-catalogue/participants",
-			"federated-catalogue/participants/:id",
-			"federated-catalogue/service-offerings",
-			"federated-catalogue/service-offerings/:id",
-			"federated-catalogue/data-resources",
-			"federated-catalogue/data-resources/:id",
-			"federated-catalogue/data-space-connectors",
-			"federated-catalogue/data-space-connectors/:id",
-			"rights-management/pap/",
-			"rights-management/pap/:id",
-			"rights-management/pap/:id",
-			"rights-management/pap/:id",
-			"rights-management/pap/query"
+			"/authentication/login",
+			"/authentication/logout",
+			"/authentication/refresh",
+			"/logging",
+			"/logging",
+			"/telemetry/metric",
+			"/telemetry/metric/:id",
+			"/telemetry/metric/:id",
+			"/telemetry/metric/:id/value",
+			"/telemetry/metric/:id",
+			"/telemetry/metric",
+			"/telemetry/metric/:id/value",
+			"/blob",
+			"/blob/:id",
+			"/blob/:id/content",
+			"/blob/:id",
+			"/blob/:id",
+			"/blob",
+			"/identity",
+			"/identity/:identity/verification-method",
+			"/identity/:identity/verification-method/:verificationMethodId",
+			"/identity/:identity/service",
+			"/identity/:identity/service/:serviceId",
+			"/identity/:identity/verifiable-credential",
+			"/identity/verifiable-credential/verify",
+			"/identity/:identity/verifiable-credential/revoke/:revocationIndex",
+			"/identity/:identity/verifiable-credential/unrevoke/:revocationIndex",
+			"/identity/:identity/verifiable-presentation",
+			"/identity/verifiable-presentation/verify",
+			"/identity/:identity/proof",
+			"/identity/proof/verify",
+			"/identity/:identity",
+			"/identity/profile",
+			"/identity/profile",
+			"/identity/profile/:identity/public",
+			"/identity/profile",
+			"/identity/profile",
+			"/identity/profile/query",
+			"/nft",
+			"/nft/:id",
+			"/nft/:id",
+			"/nft/:id/transfer",
+			"/nft/:id",
+			"/verifiable",
+			"/verifiable/:id",
+			"/verifiable/:id",
+			"/verifiable/:id",
+			"/attestation",
+			"/attestation/:id",
+			"/attestation/:id/transfer",
+			"/attestation/:id",
+			"/immutable-proof",
+			"/immutable-proof/:id",
+			"/immutable-proof/:id/verify",
+			"/aig",
+			"/aig/:id",
+			"/aig/:id",
+			"/aig",
+			"/ais",
+			"/ais/:id",
+			"/ais/:id",
+			"/ais/:id",
+			"/ais",
+			"/ais/:id",
+			"/ais/:id/:entryId",
+			"/ais/:id/:entryId/object",
+			"/ais/:id/:entryId",
+			"/ais/:id/:entryId",
+			"/ais/:id/entries",
+			"/ais/:id/entries/objects",
+			"/data-processing/rule-group/:id",
+			"/data-processing/rule-group/:id",
+			"/data-processing/rule-group/:id",
+			"/data-processing/extract",
+			"/data-processing/convert",
+			"/data-processing/rule-group",
+			"/documents",
+			"/documents/:auditableItemGraphDocumentId",
+			"/documents/:auditableItemGraphDocumentId",
+			"/documents/:auditableItemGraphDocumentId/:revision",
+			"/documents/:auditableItemGraphDocumentId/:revision",
+			"/documents",
+			"/federated-catalogue/participant-credentials",
+			"/federated-catalogue/service-offering-credentials",
+			"/federated-catalogue/data-resource-credentials",
+			"/federated-catalogue/data-space-connector-credentials",
+			"/federated-catalogue/participants",
+			"/federated-catalogue/participants/:id",
+			"/federated-catalogue/service-offerings",
+			"/federated-catalogue/service-offerings/:id",
+			"/federated-catalogue/data-resources",
+			"/federated-catalogue/data-resources/:id",
+			"/federated-catalogue/data-space-connectors",
+			"/federated-catalogue/data-space-connectors/:id",
+			"/rights-management/pap",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/:id",
+			"/rights-management/pap/query"
 		]);
 
 		if (startResult?.engine) {
@@ -312,42 +311,41 @@ describe("node-core", () => {
 	});
 
 	test("Can start and bootstrap the server in memory, and restart with existing data", async () => {
-		const config: INodeVariables = {
-			entityStorageConnectorType: EntityStorageConnectorType.Memory,
-			blobStorageConnectorType: BlobStorageConnectorType.Memory,
-			loggingConnector: LoggingConnectorType.EntityStorage,
-			telemetryConnector: TelemetryConnectorType.EntityStorage,
-			backgroundTaskConnector: BackgroundTaskConnectorType.EntityStorage,
-			vaultConnector: VaultConnectorType.EntityStorage,
-			identityConnector: IdentityConnectorType.EntityStorage,
-			identityResolverConnector: IdentityResolverConnectorType.EntityStorage,
-			identityProfileConnector: IdentityProfileConnectorType.EntityStorage,
-			nftConnector: NftConnectorType.EntityStorage,
-			verifiableStorageConnector: VerifiableStorageConnectorType.EntityStorage,
-			attestationConnector: AttestationConnectorType.Nft,
-			faucetConnector: FaucetConnectorType.EntityStorage,
-			walletConnector: WalletConnectorType.EntityStorage,
-			dataConverterConnectors: "json,xml",
-			dataExtractorConnectors: "json-path",
-			authProcessorType: AuthenticationComponentType.EntityStorage,
-			blobStorageEnableEncryption: "true",
-			features: "node-identity,node-user"
+		const envVars: { [key: string]: string } = {
+			TWIN_NODE_ENTITY_STORAGE_CONNECTOR_TYPE: EntityStorageConnectorType.Memory,
+			TWIN_NODE_BLOB_STORAGE_CONNECTOR_TYPE: BlobStorageConnectorType.Memory,
+			TWIN_NODE_LOGGING_CONNECTOR: LoggingConnectorType.EntityStorage,
+			TWIN_NODE_TELEMETRY_CONNECTOR: TelemetryConnectorType.EntityStorage,
+			TWIN_NODE_BACKGROUND_TASK_CONNECTOR: BackgroundTaskConnectorType.EntityStorage,
+			TWIN_NODE_VAULT_CONNECTOR: VaultConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_CONNECTOR: IdentityConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_RESOLVER_CONNECTOR: IdentityResolverConnectorType.EntityStorage,
+			TWIN_NODE_IDENTITY_PROFILE_CONNECTOR: IdentityProfileConnectorType.EntityStorage,
+			TWIN_NODE_NFT_CONNECTOR: NftConnectorType.EntityStorage,
+			TWIN_NODE_VERIFIABLE_STORAGE_CONNECTOR: VerifiableStorageConnectorType.EntityStorage,
+			TWIN_NODE_ATTESTATION_CONNECTOR: AttestationConnectorType.Nft,
+			TWIN_NODE_FAUCET_CONNECTOR: FaucetConnectorType.EntityStorage,
+			TWIN_NODE_WALLET_CONNECTOR: WalletConnectorType.EntityStorage,
+			TWIN_NODE_DATA_CONVERTER_CONNECTORS: "json,xml",
+			TWIN_NODE_DATA_EXTRACTOR_CONNECTORS: "json-path",
+			TWIN_NODE_AUTH_PROCESSOR_TYPE: AuthenticationComponentType.EntityStorage,
+			TWIN_NODE_BLOB_STORAGE_ENABLE_ENCRYPTION: "true",
+			TWIN_NODE_FEATURES: "node-identity,node-user",
+			TWIN_NODE_RIGHTS_MANAGEMENT_ENABLED: "true"
 		};
 
 		await initialiseLocales("./dist/locales/");
 
 		const memoryStateStorage = new MemoryStateStorage();
 
-		const startResult = await start(
-			{
-				name: "foo",
-				version: "0.0.0"
-			},
-			"TWIN_NODE_",
-			config,
-			"",
-			memoryStateStorage
-		);
+		const nodeOptions: INodeOptions = { envPrefix: "TWIN_NODE_", stateStorage: memoryStateStorage };
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
 
 		await startResult?.server.stop();
 
@@ -360,14 +358,9 @@ describe("node-core", () => {
 			});
 
 			const startResult2 = await start(
-				{
-					name: "foo",
-					version: "0.0.0"
-				},
-				"TWIN_NODE_",
-				config,
-				"",
-				memoryStateStorage2
+				{ envPrefix: "TWIN_NODE_", stateStorage: memoryStateStorage2 },
+				engineServerConfig,
+				nodeEnvVars
 			);
 
 			await startResult2?.server.stop();
@@ -421,5 +414,209 @@ describe("node-core", () => {
 			expect(authUserStore.length).toEqual(1);
 			expect(identityProfileStore[0].identity).toEqual(identityDocumentStore[0].id);
 		}
+	});
+
+	test("Can start a server and intercept custom callbacks", async () => {
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_DEBUG: "true",
+			TWIN_NODE_ENTITY_STORAGE_CONNECTOR_TYPE: EntityStorageConnectorType.Memory,
+			TWIN_NODE_TASK_SCHEDULER_ENABLED: "false"
+		};
+
+		await initialiseLocales("./dist/locales/");
+
+		const memoryStateStorage = new MemoryStateStorage(false, {
+			nodeIdentity: "bob",
+			componentStates: {}
+		});
+
+		let extendEnvVarsCalled = false;
+		let extendConfigCalled = false;
+		let extendEngineCalled = false;
+		let extendEngineServerCalled = false;
+
+		const nodeOptions: INodeOptions = {
+			envPrefix: "TWIN_NODE_",
+			extendEnvVars: async env => {
+				extendEnvVarsCalled = true;
+			},
+			extendConfig: async config => {
+				extendConfigCalled = true;
+			},
+			extendEngine: async engine => {
+				extendEngineCalled = true;
+			},
+			extendEngineServer: async server => {
+				extendEngineServerCalled = true;
+			},
+			stateStorage: memoryStateStorage
+		};
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
+
+		expect(startResult).toBeDefined();
+
+		const res = await fetch("http://localhost:3000/info");
+		expect(await res.json()).toEqual({
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		expect(extendEnvVarsCalled).toBe(true);
+		expect(extendConfigCalled).toBe(true);
+		expect(extendEngineCalled).toBe(true);
+		expect(extendEngineServerCalled).toBe(true);
+
+		expect(ComponentFactory.names()).toEqual(["logging", "information"]);
+
+		const buildRestRoutes = startResult?.server?.getRestRoutes() ?? [];
+		expect(buildRestRoutes.map(r => r.path)).toEqual([
+			"/",
+			"/info",
+			"/health",
+			"/spec",
+			"/logging",
+			"/logging"
+		]);
+
+		await startResult?.server.stop();
+	});
+
+	test("Can start a server and load a custom env file", async () => {
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_DEBUG: "false",
+			TWIN_NODE_ENTITY_STORAGE_CONNECTOR_TYPE: EntityStorageConnectorType.Memory,
+			TWIN_NODE_TASK_SCHEDULER_ENABLED: "false"
+		};
+
+		await initialiseLocales("./dist/locales/");
+
+		const memoryStateStorage = new MemoryStateStorage(false, {
+			nodeIdentity: "bob",
+			componentStates: {}
+		});
+
+		const nodeOptions: INodeOptions = {
+			envPrefix: "TWIN_NODE_",
+			envFilenames: ["tests/.test-env"],
+			stateStorage: memoryStateStorage
+		};
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
+
+		expect(startResult).toBeDefined();
+
+		const res = await fetch("http://localhost:3000/info");
+		expect(await res.json()).toEqual({
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		expect(engineServerConfig.debug).toBe(true);
+
+		expect(ComponentFactory.names()).toEqual(["logging", "information"]);
+
+		const buildRestRoutes = startResult?.server?.getRestRoutes() ?? [];
+		expect(buildRestRoutes.map(r => r.path)).toEqual([
+			"/",
+			"/info",
+			"/health",
+			"/spec",
+			"/logging",
+			"/logging"
+		]);
+
+		await startResult?.server.stop();
+	});
+
+	test("Can start a server and load a custom config file", async () => {
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_DEBUG: "false"
+		};
+
+		await initialiseLocales("./dist/locales/");
+
+		const memoryStateStorage = new MemoryStateStorage(false, {
+			nodeIdentity: "bob",
+			componentStates: {}
+		});
+
+		const nodeOptions: INodeOptions = {
+			envPrefix: "TWIN_NODE_",
+			configFilenames: ["tests/test-config.json"],
+			stateStorage: memoryStateStorage
+		};
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
+
+		expect(startResult).toBeDefined();
+
+		const res = await fetch("http://localhost:3000/info");
+		expect(await res.json()).toEqual({
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		expect(engineServerConfig.debug).toBe(true);
+
+		expect(ComponentFactory.names()).toEqual(["logging", "task-scheduler", "information"]);
+
+		const buildRestRoutes = startResult?.server?.getRestRoutes() ?? [];
+		expect(buildRestRoutes.map(r => r.path)).toEqual([
+			"/",
+			"/info",
+			"/health",
+			"/spec",
+			"/logging",
+			"/logging"
+		]);
+
+		await startResult?.server.stop();
+	});
+
+	test("Can start a server and load an embedded config file", async () => {
+		const envVars: { [id: string]: string } = {
+			TWIN_NODE_TEST_EMBEDDED: "@file:tests/embedded.json"
+		};
+
+		await initialiseLocales("./dist/locales/");
+
+		const memoryStateStorage = new MemoryStateStorage(false, {
+			nodeIdentity: "bob",
+			componentStates: {}
+		});
+
+		const nodeOptions: INodeOptions = {
+			envPrefix: "TWIN_NODE_",
+			stateStorage: memoryStateStorage
+		};
+
+		const { engineServerConfig, nodeEnvVars } = await buildConfiguration(envVars, nodeOptions, {
+			name: "foo",
+			version: "0.0.0"
+		});
+
+		const startResult = await start(nodeOptions, engineServerConfig, nodeEnvVars);
+
+		expect(startResult).toBeDefined();
+
+		expect(nodeEnvVars.testEmbedded).toEqual({
+			foo: "bar"
+		});
 	});
 });
