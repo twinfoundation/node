@@ -608,6 +608,115 @@
 				}
 			}
 		},
+		"/authentication/{email}/password": {
+			"put": {
+				"operationId": "authenticationUpdatePassword",
+				"summary": "Update the user's password",
+				"tags": [
+					"Authentication"
+				],
+				"parameters": [
+					{
+						"name": "email",
+						"description": "The user email.",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple",
+						"example": "john:example.com"
+					}
+				],
+				"security": [
+					{
+						"jwtBearerAuthScheme": []
+					}
+				],
+				"requestBody": {
+					"description": "Update a users password.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdatePasswordRequest"
+							},
+							"examples": {
+								"updatePasswordRequestExample": {
+									"summary": "The request to update the user's password.",
+									"value": {
+										"currentPassword": "MyNewPassword123!",
+										"newPassword": "MyNewPassword123!"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"204": {
+						"description": "The rest request ended in success with no data."
+					},
+					"400": {
+						"description": "The server cannot process the request, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "GeneralError",
+											"message": "component.error",
+											"properties": {
+												"foo": "bar"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "You are not authorized to use the API or no credentials were supplied, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "UnauthorizedError",
+											"message": "component.error"
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "The server has encountered a situation it does not know how to handle, see the content for more details.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								},
+								"examples": {
+									"exampleResponse": {
+										"value": {
+											"name": "InternalServerError",
+											"message": "component.error"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/identity/{identity}": {
 			"get": {
 				"operationId": "identityResolve",
@@ -17911,6 +18020,25 @@
 					}
 				],
 				"description": "A character string denoting the type of a document. [Reference United Nations Code List (UNCL) 1001] https://vocabulary.uncefact.org/DocumentCodeList https://github.com/uncefact/vocabulary-outputs/blob/main/_data/documentcodelist.json"
+			},
+			"UpdatePasswordRequest": {
+				"type": "object",
+				"properties": {
+					"currentPassword": {
+						"type": "string",
+						"description": "The current password for the user."
+					},
+					"newPassword": {
+						"type": "string",
+						"description": "The new password for the user."
+					}
+				},
+				"required": [
+					"currentPassword",
+					"newPassword"
+				],
+				"additionalProperties": false,
+				"description": "The body of the request."
 			},
 			"VerifiableStorageCreateRequest": {
 				"type": "object",
