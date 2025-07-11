@@ -13,7 +13,10 @@
 		"packages/node-core": {
 			"package-name": "node-core",
 			"changelog-path": "docs/changelog.md",
-			"extra-files": ["src/index.ts", "src/node.ts"]
+			"extra-files": [
+				"src/index.ts",
+				"src/node.ts"
+			]
 		},
 		"apps/node": {
 			"package-name": "node",
