@@ -1,5 +1,12 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.11](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.10...node-core-v0.0.1-next.11) (2025-07-11)
+
+
+### Features
+
+* add auth admin component ([1661e57](https://github.com/twinfoundation/node/commit/1661e57a699d5cf9ebde333e3cbc3aaea89d7c9c))
+
 ## [0.0.1-next.10](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.9...node-core-v0.0.1-next.10) (2025-07-11)
 
 
