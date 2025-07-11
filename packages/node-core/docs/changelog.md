@@ -1,5 +1,12 @@
 # @twin.org/node-core - Changelog
 
+## [0.0.1-next.10](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.9...node-core-v0.0.1-next.10) (2025-07-11)
+
+
+### Features
+
+* migrate env config from engine to node ([5da29b8](https://github.com/twinfoundation/node/commit/5da29b8d714495308320d237a68e84355bba2b47))
+
 ## [0.0.1-next.9](https://github.com/twinfoundation/node/compare/node-core-v0.0.1-next.8...node-core-v0.0.1-next.9) (2025-06-20)
 
 
